@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PROMETHEUS 2056 · Relatório Técnico Parcial · Engenharia do Produto II</title>
+<style>
+:root{--n:#102a43;--t:#147d72;--g:#d69e2e;--i:#243b53;--m:#627d98;--bg:#f5f8fa;--c:#fff;--l:#d9e2ec;--s:#eaf4f1;--a:#fff7e6}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--i);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1140px;margin:auto;padding:0 20px}.hero{background:radial-gradient(circle at 85% 20%,rgba(20,125,114,.25),transparent 25%),linear-gradient(135deg,#091b2c,#102a43 60%,#174f62);color:#fff;padding:48px 0 34px}
+.k{font-size:.74rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:#9ae6d0}h1{font-size:clamp(2.3rem,6vw,4.6rem);line-height:.98;margin:8px 0 14px}.hero p{color:#d8e6ef;max-width:840px}
+.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}.box{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:14px}.box strong{display:block;font-size:1.5rem}
+nav{position:sticky;top:0;background:rgba(245,248,250,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--l);z-index:10}nav .wrap{display:flex;gap:8px;overflow:auto;padding-top:9px;padding-bottom:9px}nav a{white-space:nowrap;text-decoration:none;color:var(--n);background:#fff;border:1px solid var(--l);border-radius:999px;padding:8px 11px;font-weight:800;font-size:.88rem}
+main{padding:24px 0 52px}section{margin:0 0 28px}h2{color:var(--n);margin:0 0 8px;font-size:1.55rem}.sub{color:var(--m);margin-top:-2px}.call{border-left:5px solid var(--t);background:var(--s);padding:13px 15px;border-radius:12px;color:var(--n);font-weight:750}.warn{border-left-color:var(--g);background:var(--a)}
+.flow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}.flow span{background:#fff;border:1px solid var(--l);border-radius:999px;padding:8px 10px;font-weight:800;font-size:.86rem}.flow b{color:var(--g)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:#fff;border:1px solid var(--l);border-radius:16px;padding:16px;box-shadow:0 10px 28px rgba(16,42,67,.06)}.card h3{margin:4px 0 5px;color:var(--n);font-size:1rem}.card p{margin:0;color:var(--m);font-size:.9rem}.num{color:var(--t);font-weight:900;font-size:.72rem;letter-spacing:.08em}
+.core{background:linear-gradient(135deg,#102a43,#184c62);color:#fff;border-radius:20px;padding:20px}.core h2{color:#fff}.core p{color:#d8e6ef}.coregrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.ci{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:11px}.ci b{display:block;color:#9ae6d0;margin-bottom:3px}
+.tools{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:12px}.tools input{border:1px solid var(--l);border-radius:12px;padding:10px 12px}.tools button{border:0;background:var(--t);color:#fff;border-radius:12px;padding:10px 13px;font-weight:900}
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stage{background:#fff;border:1px solid var(--l);border-radius:16px;overflow:hidden}.stage button{width:100%;border:0;background:#fff;text-align:left;padding:14px;display:flex;gap:11px;cursor:pointer}.badge{width:36px;height:36px;border-radius:11px;background:var(--n);color:#fff;display:grid;place-items:center;font-weight:900;flex:none}.verb{font-size:.68rem;color:var(--t);text-transform:uppercase;font-weight:900;letter-spacing:.08em}.stage h3{margin:1px 0;color:var(--n)}.q{font-size:.84rem;color:var(--m)}.detail{display:none;padding:13px;border-top:1px solid var(--l);background:#fbfdfe}.stage.open .detail{display:block}.detail h4{margin:0 0 4px;color:var(--n)}.detail ul{margin:4px 0 10px;padding-left:18px;color:var(--m);font-size:.88rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.score{display:grid;grid-template-columns:.8fr 1.2fr;gap:14px}.donutwrap{display:flex;justify-content:center;align-items:center;background:#fff;border:1px solid var(--l);border-radius:18px;padding:20px}.donut{width:180px;height:180px;border-radius:50%;background:conic-gradient(var(--n) 0 60%,var(--t) 60% 100%);position:relative;display:grid;place-items:center}.donut:after{content:"";position:absolute;width:108px;height:108px;border-radius:50%;background:#fff}.donut span{z-index:1;text-align:center;font-weight:900;color:var(--n)}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--l)}th,td{padding:9px;border-bottom:1px solid var(--l);text-align:left;vertical-align:top;font-size:.88rem}th{background:var(--n);color:#fff}.checkgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.check{display:flex;gap:8px;background:#fff;border:1px solid var(--l);border-radius:12px;padding:10px}.check input{margin-top:4px;accent-color:var(--t)}.footer{background:#0b1c2b;color:#d3e2ec;border-radius:18px;padding:18px}
+@media(max-width:850px){.grid,.stages{grid-template-columns:repeat(2,1fr)}.score{grid-template-columns:1fr}.meta{grid-template-columns:1fr 1fr}}@media(max-width:620px){.grid,.stages,.two,.coregrid,.checkgrid,.meta{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<div class="k">EPRI5002 · Engenharia do Produto II · UNIFEI</div><h1>Relatório Técnico Parcial</h1>
+<p>Guia visual para transformar a trajetória de desenvolvimento do produto no Mapa Prometheus em um relatório técnico profundo, rastreável e coerente.</p>
+<div class="call" style="background:rgba(255,255,255,.09);border-color:#d69e2e;color:#fff">Pergunta direcionadora: <b>Como inovar o produto escolhido hoje para garantir sua existência e relevância daqui a 30 anos?</b></div>
+<div class="meta"><div class="box"><span class="k">Entrega</span><strong>18/10/2026</strong></div><div class="box"><span class="k">Limite</span><strong>30 páginas</strong><small>incluindo referências e anexos</small></div><div class="box"><span class="k">Nota</span><strong>60% + 40%</strong><small>coletiva + individual</small></div></div>
+</div></header>
+<nav><div class="wrap"><a href="#essencia">Essência</a><a href="#estrutura">Estrutura</a><a href="#etapas">Etapas</a><a href="#integrantes">Integrantes</a><a href="#avaliacao">Avaliação</a><a href="#cronograma">Cronograma</a><a href="#checklist">Checklist</a></div></nav>
+<main><div class="wrap">
+<section id="essencia"><h2>1. A essência do relatório</h2><p class="sub">O relatório é a memória viva da jornada: alguém de fora da Squad deve conseguir reconstruir o desenvolvimento técnico e intelectual do projeto.</p>
+<div class="call">Inclua somente etapas efetivamente percorridas. O Mapa Prometheus mede maturidade; o calendário define os momentos formais de avaliação.</div>
+<div class="flow"><span>Atividade</span><b>→</b><span>Evidência</span><b>→</b><span>Interpretação</span><b>→</b><span>Decisão</span><b>→</b><span>Transformação no produto</span></div>
+<div class="call warn" style="margin-top:12px"><b>Ferramenta não é entrega.</b> QFD, benchmarking, análise funcional, DFX, Learning Plan, protótipos e demais ferramentas só têm valor quando produzem evidência, decisão ou transformação.</div></section>
+
+<section id="estrutura"><h2>2. Estrutura recomendada</h2><div class="grid">
+<div class="card"><div class="num">01</div><h3>Identificação da Squad</h3><p>Integrantes, especialidades, liderança e produto escolhido.</p></div>
+<div class="card"><div class="num">02</div><h3>Resumo executivo parcial</h3><p>Estado atual, principal avanço, evidências e maior incerteza.</p></div>
+<div class="card"><div class="num">03</div><h3>Produto de partida</h3><p>Descrição, função, usuários, contexto, justificativa e hipóteses iniciais.</p></div>
+<div class="card"><div class="num">04</div><h3>Trajetória no Prometheus</h3><p>Núcleo do relatório: etapas e atividades realmente percorridas.</p></div>
+<div class="card"><div class="num">05–06</div><h3>Integração + evolução</h3><p>Como evidências conectam necessidade, requisito, conceito, decisão e mudança.</p></div>
+<div class="card"><div class="num">07</div><h3>Contribuição dos integrantes</h3><p>O que cada membro liderou, apoiou, produziu e aprendeu.</p></div>
+<div class="card"><div class="num">08–10</div><h3>Estado + lacunas + próximos movimentos</h3><p>Fotografia técnica atual, questões abertas e próximos passos.</p></div>
+<div class="card"><div class="num">11</div><h3>Referências e anexos</h3><p>Apenas materiais que sustentem evidências, decisões ou rastreabilidade.</p></div>
+<div class="card"><div class="num">12</div><h3>Cronograma</h3><p>Planejamento das etapas restantes e suas dependências.</p></div>
+</div></section>
+
+<section class="core"><h2>3. O que escrever dentro de cada etapa</h2><p>Use a mesma arquitetura em todas as etapas efetivamente percorridas.</p>
+<div class="coregrid">
+<div class="ci"><b>A · Pergunta central</b>Qual pergunta do mapa guiou a etapa?</div><div class="ci"><b>B · Atividades realizadas</b>O que foi feito, como, por quem e com quais fontes?</div>
+<div class="ci"><b>C · Ferramentas</b>Por que foram escolhidas e que resultado produziram?</div><div class="ci"><b>D · Evidências</b>Dados, usuários, fotografias, QFD, desenhos, modelos, testes etc.</div>
+<div class="ci"><b>E · Descobertas</b>O que ficou mais claro depois das atividades?</div><div class="ci"><b>F · Decisões</b>Que escolhas foram tomadas por causa das evidências?</div>
+<div class="ci"><b>G · Mudanças</b>O que vocês pensavam antes e o que passaram a compreender?</div><div class="ci"><b>H · Impacto no produto</b>O que mudou em requisito, função, arquitetura, material, experiência, teste ou evolução?</div>
+<div class="ci"><b>I · Dificuldades</b>O que continua frágil, incompleto ou desconhecido?</div><div class="ci"><b>J · Maturidade</b>Por que a Squad avançou — ou por que ainda não deve avançar?</div>
+</div></section>
+
+<section id="etapas"><h2>4. As 12 etapas do Mapa Prometheus</h2><p class="sub">Clique para ver atividades previstas e evidências de progresso, conforme o Manual do Projeto da disciplina.</p>
+<div class="tools"><input id="search" placeholder="Buscar etapa, atividade ou evidência…"><button id="all">Abrir todas</button></div><div id="stages" class="stages"></div></section>
+
+<section id="integrantes"><h2>5. Papel de cada integrante</h2><div class="two">
+<div class="card"><h3>Registre para cada membro</h3><p>Especialidade · atividades lideradas · atividades apoiadas · ferramentas em que atuou · evidências produzidas · decisões para as quais contribuiu · aprendizado.</p></div>
+<div class="card"><h3>Regra da integração</h3><p><b>Nenhum integrante poderá dizer “essa parte não é minha”.</b> Especialidade é responsabilidade predominante, não exclusividade.</p></div>
+</div></section>
+
+<section id="avaliacao"><h2>6. Como a nota será formada</h2><div class="score">
+<div class="donutwrap"><div class="donut"><span>100%<br>da nota</span></div></div>
+<div><table><thead><tr><th>Componente</th><th>Peso</th></tr></thead><tbody><tr><td>Nota coletiva da Squad</td><td>60%</td></tr><tr><td>Nota individual</td><td>40%</td></tr></tbody></table>
+<div class="call" style="margin-top:12px">Nos 40% individuais, o professor fará uma análise combinada das respostas do formulário individual e dos resultados da Avaliação 360. <b>Não haverá divisão fixa nem média automática entre essas duas fontes.</b></div>
+<h3 style="color:var(--n)">Rubrica da parte coletiva</h3>
+<table><thead><tr><th>Critério</th><th>Peso</th></tr></thead><tbody>
+<tr><td>Profundidade na descrição das etapas e atividades</td><td>20%</td></tr><tr><td>Qualidade técnica das evidências e aplicação das ferramentas</td><td>15%</td></tr><tr><td>Evolução do produto e integração entre as etapas</td><td>10%</td></tr><tr><td>Coerência do estado atual do projeto</td><td>5%</td></tr><tr><td>Clareza da contribuição dos integrantes</td><td>5%</td></tr><tr><td>Qualidade e viabilidade do cronograma</td><td>5%</td></tr>
+</tbody></table></div></div></section>
+
+<section id="cronograma"><h2>7. Último tópico: cronograma até a conclusão</h2>
+<div class="call">O cronograma deve mostrar <b>o que falta no mapa + responsável predominante + dependência + prazo + evidência esperada</b>. Revisões são permitidas quando surgirem novas evidências.</div>
+<div style="overflow:auto;margin-top:12px"><table style="min-width:930px"><thead><tr><th>Etapa</th><th>Situação atual</th><th>Atividades pendentes</th><th>Responsável(is)</th><th>Dependência</th><th>Início</th><th>Conclusão</th><th>Evidência esperada</th></tr></thead>
+<tbody><tr><td>Ex.: 7 · Customização</td><td>Em desenvolvimento</td><td>Definir arquitetura e aplicar DFX</td><td>Codificador + Desenvolvedor + Squad</td><td>Alternativa escolhida</td><td>__/__/__</td><td>__/__/__</td><td>Arquitetura + especificações + decisões DFX</td></tr></tbody></table></div></section>
+
+<section id="checklist"><h2>8. Checklist antes do envio</h2><div class="checkgrid" id="checks">
+<label class="check"><input type="checkbox">Todas as etapas descritas foram realmente percorridas.</label>
+<label class="check"><input type="checkbox">Cada etapa contém atividades, ferramentas, evidências, descobertas e decisões.</label>
+<label class="check"><input type="checkbox">Está claro o impacto de cada etapa sobre o produto.</label>
+<label class="check"><input type="checkbox">QFD, DFX, protótipos e demais ferramentas não aparecem como fins em si mesmos.</label>
+<label class="check"><input type="checkbox">O Registro de Evolução mostra revisões, erros e mudanças reais.</label>
+<label class="check"><input type="checkbox">O papel de cada integrante está descrito.</label>
+<label class="check"><input type="checkbox">O estado atual do produto é coerente com as evidências.</label>
+<label class="check"><input type="checkbox">As questões ainda abertas estão explicitadas.</label>
+<label class="check"><input type="checkbox">O cronograma cobre etapas restantes e dependências.</label>
+<label class="check"><input type="checkbox">O arquivo completo não ultrapassa 30 páginas.</label>
+</div><div id="progress" class="call" style="margin-top:12px">0 de 10 itens conferidos.</div></section>
+
+<div class="footer"><b>Mensagem final:</b> mostrem mudança, não volume. O que importa é o que vocês compreenderam, decidiram, testaram e transformaram no produto.</div>
+</div></main>
+<script>
+const S=[
+{n:0,name:"Partida Gélida",verb:"Orientar",q:"Por que este produto ainda existe em 2026?",do:["Selecionar um produto físico acessível para uso real","Justificar a escolha e registrar sua relevância","Identificar usuários e função aparente","Registrar primeiras hipóteses sobre o futuro","Definir especialidades e liderança","Registrar dúvidas iniciais"],ev:["Produto definido","Justificativa","Registros do produto real","Hipóteses e dúvidas iniciais"]},
+{n:1,name:"Descoberta",verb:"Compreender",q:"Como este produto funciona, como chegou até aqui e de que sistema ele faz parte?",do:["Investigar origem e evolução histórica","Identificar funções, componentes, materiais e arquitetura","Investigar fabricação, montagem, embalagem, distribuição e manutenção","Analisar concorrentes e substitutos","Observar descarte e fim de vida"],ev:["Linha histórica","Decomposição do produto","Benchmarking","Descrição funcional","Materiais e processos"]},
+{n:2,name:"Imersão",verb:"Humanizar",q:"Qual necessidade humana sustenta a existência deste produto?",do:["Observar usuários reais","Realizar entrevistas e registrar contextos de uso","Identificar dificuldades, adaptações, expectativas e frustrações","Distinguir necessidades explícitas e latentes","Identificar usuários diretos e indiretos"],ev:["Registros de usuários","Entrevistas","Padrões de uso","Problemas recorrentes","Necessidades levantadas"]},
+{n:3,name:"Validação",verb:"Confirmar",q:"As necessidades e problemas que identificamos são realmente relevantes?",do:["Revisar hipóteses e organizar necessidades","Priorizar necessidades e requisitos","Definir parâmetros técnicos e critérios de qualidade","Identificar conflitos e trade-offs","Confrontar interpretações com usuários e dados","Estruturar o QFD"],ev:["Necessidades priorizadas","Requisitos definidos","Parâmetros identificados","QFD estruturado","Hipóteses revistas"]},
+{n:4,name:"Pesquisa",verb:"Ampliar",q:"O que poderá tornar este produto irrelevante antes de 2056?",do:["Investigar tecnologias emergentes e materiais","Analisar mudanças de comportamento, energia, sustentabilidade e regulação","Investigar modelos de negócio, concorrentes e substitutos","Identificar mudanças sociais, econômicas, ambientais e de infraestrutura","Mapear ameaças, oportunidades e incertezas"],ev:["Vetores de mudança","Ameaças e oportunidades","Tecnologias relevantes","Hipóteses de futuro","Possíveis rupturas"]},
+{n:5,name:"Conceitualização",verb:"Abstrair",q:"O que pode mudar radicalmente sem destruir a razão de existir do produto?",do:["Definir a essência do produto","Identificar camadas transitórias","Identificar elementos candidatos à eliminação","Construir princípios orientadores para o produto futuro"],ev:["Definição da essência","Elementos transitórios","Elementos em obsolescência","Princípios orientadores"]},
+{n:6,name:"Ideação",verb:"Divergir",q:"Quantas formas realmente diferentes de resolver esse problema conseguimos imaginar?",do:["Gerar alternativas realmente distintas","Modificar função, arquitetura, materiais, energia, interação, fabricação, embalagem, manutenção, descarte, negócio ou serviços","Registrar alternativas antes de convergir","Definir critérios de comparação","Justificar as ideias que avançarão"],ev:["Alternativas distintas","Registros do processo criativo","Critérios de seleção","Comparações e justificativas"]},
+{n:7,name:"Customização",verb:"Estruturar",q:"Como essa solução precisa ser configurada para funcionar de forma viável?",do:["Definir arquitetura, componentes, materiais e dimensões","Analisar fabricação, montagem, desmontagem e manutenção","Integrar ergonomia, sustentabilidade, embalagem e custos","Transformar decisões em especificações","Aplicar DFX como ferramenta de decisão"],ev:["Arquitetura definida","Especificações","Materiais justificados","Desenhos ou modelos","Critérios técnicos"]},
+{n:8,name:"Experimentação",verb:"Testar",q:"O que precisamos testar para descobrir se nossa solução realmente funciona?",do:["Formular hipóteses explícitas","Construir mockups, modelos ou protótipos adequados às hipóteses","Realizar testes funcionais ou com usuários","Registrar falhas, resultados e aprendizados","Modificar a solução com base nas evidências"],ev:["Protótipos","Fotografias e vídeos","Resultados de testes","Falhas registradas","Versões sucessivas","Mudanças decorrentes"]},
+{n:9,name:"Apropriação",verb:"Integrar",q:"Nós realmente compreendemos aquilo que estamos desenvolvendo?",do:["Revisar o projeto inteiro e conectar as etapas","Relacionar conceitos, ferramentas, decisões e resultados","Identificar incoerências e lacunas","Revisar hipóteses e limitações","Garantir que todos consigam explicar o projeto","Construir um mapa integrado da trajetória"],ev:["Mapa integrado","Decisões justificadas","Relação entre ferramentas","Domínio compartilhado","Lacunas identificadas"]},
+{n:10,name:"Difusão",verb:"Perpetuar",q:"Como fazer essa inovação permanecer relevante e utilizável entre 2026 e 2056?",do:["Discutir difusão de adoção, produtiva, geográfica e temporal","Projetar modularidade, reparabilidade, manutenção e upgrades","Pensar interoperabilidade e compatibilidade entre gerações","Analisar circularidade, peças de reposição, comercialização e escalabilidade","Construir o Roadmap 2026-2056"],ev:["Roadmap 2026-2056","Estratégia de evolução","Estratégia de comercialização","Mecanismos de atualização","Plano de manutenção da relevância"]},
+{n:11,name:"Conquista",verb:"Defender",q:"Nossa proposta continua consistente quando confrontada com evidências, críticas e incertezas?",do:["Revisar projeto, relatório, protótipos e roadmap","Consolidar aprendizados, limitações e decisões","Preparar a defesa final","Submeter a proposta a um Stress Test 2056","Responder à pergunta direcionadora"],ev:["Solução consolidada","Relatório final","Roadmap","Protótipos e testes","Estratégia de difusão","Limitações e aprendizados"]}
+],grid=document.getElementById("stages"),search=document.getElementById("search"),all=document.getElementById("all");let opened=false;
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function render(){let q=search.value.toLowerCase();let f=S.filter(s=>[s.name,s.verb,s.q,...s.do,...s.ev].join(" ").toLowerCase().includes(q));grid.innerHTML=f.map(s=>`<article class="stage"><button><span class="badge">${s.n}</span><span><span class="verb">${esc(s.verb)}</span><h3>${esc(s.name)}</h3><span class="q">${esc(s.q)}</span></span></button><div class="detail"><h4>O que a Squad precisa fazer</h4><ul>${s.do.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><h4>Evidências de progresso</h4><ul>${s.ev.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><div class="call">No relatório, explique <b>como</b> vocês fizeram, <b>o que</b> descobriram e <b>o que isso modificou</b> no produto ou no raciocínio da Squad.</div></div></article>`).join("");grid.querySelectorAll(".stage button").forEach(b=>b.onclick=()=>b.closest(".stage").classList.toggle("open"))}
+search.oninput=render;all.onclick=()=>{opened=!opened;document.querySelectorAll(".stage").forEach(x=>x.classList.toggle("open",opened));all.textContent=opened?"Fechar todas":"Abrir todas"};render();
+const checks=[...document.querySelectorAll("#checks input")],prog=document.getElementById("progress");checks.forEach(c=>c.onchange=()=>{let n=checks.filter(x=>x.checked).length;prog.textContent=`${n} de ${checks.length} itens conferidos.`});
+</script>
+</body></html>
