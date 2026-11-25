@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkpoint 2 - Defesa Individual do Projeto | Engenharia do Produto II</title>
+<style>
+:root {
+  --bg:#07131d; --panel:#0f2432; --panel2:#163447; --ink:#f2fbfb; --muted:#b4c9d0;
+  --teal:#2dd4bf; --blue:#4ea8ff; --amber:#ffc857; --red:#ff7070; --green:#79e5a8;
+  --line:rgba(255,255,255,.12); --soft:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+radial-gradient(circle at 10% 0%,rgba(45,212,191,.11),transparent 30%),
+radial-gradient(circle at 90% 10%,rgba(78,168,255,.08),transparent 28%),var(--bg);color:var(--ink);line-height:1.55}
+a{color:#9ff8eb}
+button{font:inherit}
+.top{position:sticky;top:0;z-index:30;background:rgba(7,19,29,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topin{max-width:1200px;margin:auto;padding:10px 18px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.brand{font-weight:900} .brand small{display:block;color:var(--muted);font-weight:500}
+.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+button{border:1px solid var(--line);background:var(--panel2);color:var(--ink);padding:8px 11px;border-radius:10px;cursor:pointer}
+button:hover{border-color:var(--teal)}
+.progress{height:4px;background:#102838} .progress>div{height:4px;width:0;background:linear-gradient(90deg,var(--teal),var(--amber),var(--blue))}
+main{max-width:1200px;margin:auto;padding:22px 18px 70px}
+.hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:28px;padding:34px;background:linear-gradient(135deg,rgba(16,79,87,.72),rgba(15,36,50,.96));box-shadow:0 22px 50px rgba(0,0,0,.25)}
+.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-weight:900;font-size:.76rem;color:var(--teal)}
+.hero h1{font-size:clamp(2.45rem,5.3vw,5rem);line-height:.97;margin:8px 0 16px;max-width:980px;letter-spacing:-.045em}
+.hero .lead{font-size:1.1rem;color:#dcf6f3;max-width:900px}
+.hero .question{margin-top:18px;padding:17px 19px;border-left:4px solid var(--amber);background:rgba(255,200,87,.07);font-size:1.12rem;font-weight:750;border-radius:0 14px 14px 0;max-width:970px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px} .chip{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);font-size:.82rem}
+.ghost{position:absolute;right:-4px;bottom:-76px;font-size:170px;font-weight:950;color:rgba(255,255,255,.025)}
+.section{margin-top:34px} .section-head{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-bottom:14px}
+.section-head h2{font-size:clamp(1.65rem,3vw,2.55rem);margin:3px 0} .section-head p{max-width:720px;color:var(--muted)}
+.card{background:linear-gradient(180deg,rgba(22,52,71,.96),rgba(15,36,50,.96));border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 9px 25px rgba(0,0,0,.14)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px} .kpi .card{text-align:center} .big{font-size:2.6rem;font-weight:950;color:var(--amber);line-height:1} .sub{font-size:.84rem;color:var(--muted)}
+.rule{border-left:4px solid var(--teal);padding:16px 18px;background:rgba(45,212,191,.07);border-radius:0 14px 14px 0}
+.rule.red{border-left-color:var(--red);background:rgba(255,112,112,.06)}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px} .flow .step{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--panel2);min-height:145px} .step b{color:var(--teal);display:block;margin-bottom:6px} .step .num{font-size:1.8rem;font-weight:950;color:var(--amber)}
+.n2grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px} .n2item{padding:14px 10px;border-radius:14px;background:var(--panel2);border:1px solid var(--line);text-align:center} .n2item strong{display:block;font-size:1.45rem;color:var(--amber)} .n2item b{display:block;margin-top:4px;font-size:.9rem}
+.rubric{overflow:auto} table{width:100%;border-collapse:collapse;min-width:760px} th,td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left} th{background:rgba(255,255,255,.05);color:#dcfffa} td.points{font-weight:900;color:var(--amber);white-space:nowrap}
+.bar{height:7px;border-radius:999px;background:#0a1d29;overflow:hidden;margin-top:7px} .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--blue))}
+.callout{padding:15px;border-radius:14px;background:rgba(255,200,87,.07);border:1px solid rgba(255,200,87,.22)}
+.schedule{display:grid;grid-template-columns:repeat(4,1fr);gap:8px} .slot{padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);text-align:center;font-weight:850} .slot span{display:block;color:var(--muted);font-size:.72rem;font-weight:600}
+.timerbox{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center} .timer{font-size:clamp(4rem,10vw,8rem);font-weight:950;line-height:1;color:var(--teal);letter-spacing:-.06em} .timer.warn{color:var(--amber)} .timer.danger{color:var(--red)} .timer-controls{display:flex;gap:8px;flex-wrap:wrap}
+.checks label{display:block;margin:9px 0;padding:10px;border-radius:11px;background:rgba(255,255,255,.04);cursor:pointer} .checks input{accent-color:var(--teal);transform:scale(1.12);margin-right:8px}
+.faq details{border:1px solid var(--line);border-radius:13px;padding:12px 14px;margin:8px 0;background:var(--panel2)} .faq summary{font-weight:850;cursor:pointer}
+.prof{display:none;margin-top:10px;padding:11px 13px;border:1px dashed rgba(255,200,87,.45);border-radius:12px;background:rgba(255,200,87,.06);color:#ffe7a8} body.teacher .prof{display:block}
+.footer{margin-top:42px;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);text-align:center}
+@media(max-width:900px){.grid2,.grid3,.flow,.n2grid,.schedule,.kpi{grid-template-columns:1fr 1fr} .timerbox{grid-template-columns:1fr}}
+@media(max-width:560px){.grid2,.grid3,.flow,.n2grid,.schedule,.kpi{grid-template-columns:1fr} .hero{padding:24px} .topin{align-items:flex-start;flex-direction:column}}
+@media print{.top,.no-print{display:none!important} body{background:#fff;color:#111} main{max-width:none;padding:0} .hero,.card,.n2item,.step,.slot,details{background:#fff!important;color:#111!important;box-shadow:none;border:1px solid #bbb!important} .section-head p,.sub,.footer{color:#444!important} .prof{display:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="topin">
+    <div class="brand">EPRI5002 - Engenharia do Produto II<small>Checkpoint 2 - Defesa Individual do Projeto</small></div>
+    <div class="actions no-print"><button id="teacherBtn">Modo professor</button><button onclick="window.print()">Imprimir/PDF</button></div>
+  </div>
+  <div class="progress"><div id="prog"></div></div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">PROMETHEUS 2056 • N2 • 25 pontos</div>
+  <h1>Checkpoint 2 - Defesa Individual do Projeto</h1>
+  <p class="lead">Cada estudante terá sua própria oportunidade de demonstrar que compreendeu o projeto construído coletivamente, sabe reconstruir sua trajetória e consegue explicar sua contribuição para o resultado final.</p>
+  <div class="question">Pergunta central: <b>Se este projeto fosse seu e você tivesse apenas 90 segundos para defender o que foi construído, o que seria essencial mostrar?</b></div>
+  <div class="chips"><span class="chip">09/12/2026 - data principal</span><span class="chip">10/12/2026 - data-reserva</span><span class="chip">19 estudantes</span><span class="chip">5 min por estudante</span><span class="chip">90 s de apresentação</span></div>
+  <div class="ghost">90s</div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">Como funciona</div><h2>Uma defesa individual, não uma apresentação repetida da Squad</h2></div><p>O trabalho continua sendo coletivo. A apresentação, porém, é individual: cada pessoa deverá construir sua própria narrativa e demonstrar apropriação do projeto.</p></div>
+  <div class="kpi">
+    <div class="card"><div class="big">90 s</div><b>Apresentação individual</b><div class="sub">sua leitura do projeto</div></div>
+    <div class="card"><div class="big">até 2 min</div><b>Arguição</b><div class="sub">uma ou duas perguntas</div></div>
+    <div class="card"><div class="big">5 min</div><b>Janela total</b><div class="sub">inclui avaliação e troca</div></div>
+  </div>
+  <div class="rule" style="margin-top:14px"><b>Regra essencial:</b> não existe uma apresentação oficial da Squad para ser repetida por todos. Cada estudante deve construir sua própria síntese e mostrar o que considera mais importante no trabalho.</div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">O que precisa ficar claro</div><h2>Cinco coisas que sua apresentação precisa demonstrar</h2></div></div>
+  <div class="flow">
+    <div class="step"><div class="num">1</div><b>O projeto</b>Qual produto foi trabalhado e qual problema a Squad buscou resolver?</div>
+    <div class="step"><div class="num">2</div><b>A trajetória</b>O que mudou no desenvolvimento e por quê?</div>
+    <div class="step"><div class="num">3</div><b>A evidência</b>Qual teste, dado ou descoberta foi decisivo?</div>
+    <div class="step"><div class="num">4</div><b>A solução e 2056</b>O que existe hoje e como pretende permanecer relevante no tempo?</div>
+  </div>
+  <div class="card" style="margin-top:10px;border-left:4px solid var(--amber)">
+    <b style="color:var(--amber)">5. SUA CONTRIBUIÇÃO</b>
+    <p>Precisa ficar claro como você participou da construção do trabalho. Não basta dizer “eu fiz o QFD”, “eu fiz o Canvas” ou “eu fiz os slides”. Explique <b>o que você fez, o que compreendeu a partir disso e como sua participação influenciou alguma decisão, mudança ou resultado do projeto.</b></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">N2 da disciplina</div><h2>Como os 100 pontos da N2 serão distribuídos</h2></div><p>O Checkpoint 2 vale 25 pontos e é o principal componente individual de defesa e apropriação do projeto.</p></div>
+  <div class="n2grid">
+    <div class="n2item"><strong>30</strong><b>Relatório Final</b></div>
+    <div class="n2item"><strong>10</strong><b>Protótipo Final</b></div>
+    <div class="n2item" style="outline:2px solid var(--teal)"><strong>25</strong><b>Checkpoint 2</b></div>
+    <div class="n2item"><strong>10</strong><b>Checkpoint 1</b></div>
+    <div class="n2item"><strong>20</strong><b>Participação</b></div>
+    <div class="n2item"><strong>5</strong><b>Avaliação 360</b></div>
+  </div>
+  <div class="callout" style="margin-top:12px"><b>A lógica:</b> um excelente relatório ou protótipo não substitui o domínio individual do projeto. Da mesma forma, uma excelente apresentação individual não substitui a qualidade daquilo que a Squad efetivamente desenvolveu.</div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">Rubrica do Checkpoint 2</div><h2>Como os 25 pontos serão avaliados</h2></div><p>Os cinco critérios originais do PROMETHEUS foram mantidos, agora adaptados à defesa individual.</p></div>
+  <div class="card rubric">
+    <table>
+      <thead><tr><th>Critério</th><th>Pontos</th><th>O que será observado</th></tr></thead>
+      <tbody>
+        <tr><td><b>Progresso e apropriação individual</b><div class="bar"><span style="width:40%"></span></div></td><td class="points">10,00</td><td>Reconstrói a evolução do projeto; conecta evidência → compreensão → decisão → transformação; explica sua participação concreta. Dentro desses 10 pts: 5 pts trajetória, 2,5 pts conexão entre evidência e mudança, 2,5 pts contribuição pessoal.</td></tr>
+        <tr><td><b>Conteúdo e domínio</b><div class="bar"><span style="width:25%"></span></div></td><td class="points">6,25</td><td>Domínio do produto, decisões, ferramentas, testes, limitações e lógica de evolução até 2056. Inclui a arguição. Aproximadamente 3,75 pts pelo domínio demonstrado na apresentação e 2,5 pts pelas respostas.</td></tr>
+        <tr><td><b>Linguagem</b><div class="bar"><span style="width:15%"></span></div></td><td class="points">3,75</td><td>Clareza, precisão, objetividade, uso adequado de termos técnicos e capacidade de síntese.</td></tr>
+        <tr><td><b>Ritmo</b><div class="bar"><span style="width:10%"></span></div></td><td class="points">2,50</td><td>Uso inteligente dos 90 segundos, sequência lógica, fluência, priorização e encerramento no tempo.</td></tr>
+        <tr><td><b>Criatividade</b><div class="bar"><span style="width:10%"></span></div></td><td class="points">2,50</td><td>Originalidade e inteligência na forma de comunicar o projeto e selecionar evidências relevantes.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">Arguição</div><h2>Você pode ser perguntado sobre qualquer elemento essencial do projeto</h2></div><p>Sua especialidade mostra onde você teve responsabilidade predominante; ela não limita o que você precisa compreender.</p></div>
+  <div class="grid2">
+    <div class="card"><b>Exemplos de perguntas</b><ul>
+      <li>Qual decisão da Squad foi mais importante e por quê?</li>
+      <li>Qual evidência mais mudou o projeto?</li>
+      <li>O que vocês acreditavam no início e hoje não acreditam mais?</li>
+      <li>Qual é hoje a maior fragilidade da solução?</li>
+      <li>Que teste ainda falta para você confiar na proposta?</li>
+    </ul></div>
+    <div class="card"><b>Outras possibilidades</b><ul>
+      <li>O que garante que esse produto ainda faça sentido em 2056?</li>
+      <li>Que decisão você pessoalmente teria tomado de maneira diferente?</li>
+      <li>Se o custo precisasse cair 30%, o que você mudaria?</li>
+      <li>Como uma ferramenta utilizada realmente alterou uma decisão?</li>
+      <li>Qual limitação ainda não foi resolvida?</li>
+    </ul></div>
+  </div>
+  <div class="rule red" style="margin-top:12px"><b>Não existe “essa parte não é minha”.</b> Responder dessa forma indica fragmentação do trabalho e não demonstra domínio do projeto.</div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">Agenda</div><h2>09 de dezembro - 19 janelas de 5 minutos</h2></div><p>A aula começa às 13h30. Os 19 estudantes cabem integralmente no dia 09/12. O dia 10/12 fica como buffer para imprevistos devidamente tratados.</p></div>
+  <div class="card">
+    <p><b>13h30-13h35:</b> abertura e orientações. <b>13h35-15h10:</b> defesas individuais. <b>15h10-15h15:</b> buffer final.</p>
+    <div class="schedule">
+      <div class="slot">13:35<span>5 min</span></div><div class="slot">13:40<span>5 min</span></div><div class="slot">13:45<span>5 min</span></div><div class="slot">13:50<span>5 min</span></div><div class="slot">13:55<span>5 min</span></div><div class="slot">14:00<span>5 min</span></div><div class="slot">14:05<span>5 min</span></div><div class="slot">14:10<span>5 min</span></div><div class="slot">14:15<span>5 min</span></div><div class="slot">14:20<span>5 min</span></div><div class="slot">14:25<span>5 min</span></div><div class="slot">14:30<span>5 min</span></div><div class="slot">14:35<span>5 min</span></div><div class="slot">14:40<span>5 min</span></div><div class="slot">14:45<span>5 min</span></div><div class="slot">14:50<span>5 min</span></div><div class="slot">14:55<span>5 min</span></div><div class="slot">15:00<span>5 min</span></div><div class="slot">15:05<span>5 min</span></div>
+    </div>
+    <div class="callout" style="margin-top:14px"><b>Escolha dos horários:</b> será disponibilizado um Forms. Os 10 estudantes com melhor desempenho acadêmico e maior quantidade de Kairós terão prioridade na primeira janela de escolha. Depois, os horários restantes serão liberados aos demais estudantes.</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">Treine agora</div><h2>Simulador de 90 segundos</h2></div><p>Treine sem decorar. O objetivo é conseguir priorizar o essencial e adaptar sua narrativa.</p></div>
+  <div class="card timerbox">
+    <div id="timer" class="timer">01:30</div>
+    <div>
+      <div class="timer-controls no-print"><button id="startBtn">Iniciar</button><button id="pauseBtn">Pausar</button><button id="resetBtn">Reiniciar</button></div>
+      <p class="sub">Aos 30 segundos restantes, o cronômetro muda de cor. Aos 10 segundos, entra na zona crítica.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><div class="eyebrow">Checklist</div><h2>Antes de marcar “estou pronto”</h2></div></div>
+  <div class="card checks">
+    <label><input type="checkbox"> Consigo explicar o projeto inteiro sem depender do slide.</label>
+    <label><input type="checkbox"> Sei dizer o que mudou desde o início e por quê.</label>
+    <label><input type="checkbox"> Consigo citar pelo menos uma evidência que alterou uma decisão.</label>
+    <label><input type="checkbox"> Consigo explicar minha contribuição concreta para a construção do trabalho.</label>
+    <label><input type="checkbox"> Sei defender a solução e reconhecer sua principal limitação.</label>
+    <label><input type="checkbox"> Sei explicar como a proposta pretende permanecer relevante até 2056.</label>
+    <label><input type="checkbox"> Treinei para caber em 90 segundos sem falar acelerado.</label>
+    <label><input type="checkbox"> Estou preparado para responder perguntas fora da minha especialidade.</label>
+  </div>
+</section>
+
+<section class="section faq">
+  <div class="section-head"><div><div class="eyebrow">FAQ</div><h2>Dúvidas rápidas</h2></div></div>
+  <details><summary>Posso usar slides?</summary><p>Sim. Você pode usar o computador e recursos visuais. Mas slides são opcionais e não substituem domínio. Em 90 segundos, um único slide bem pensado pode ser mais eficiente que uma sequência longa.</p></details>
+  <details><summary>Posso repetir a apresentação de outro integrante da Squad?</summary><p>Não. Cada estudante deve construir sua própria narrativa e mostrar sua percepção do projeto.</p></details>
+  <details><summary>Tenho que falar apenas da atividade que executei?</summary><p>Não. Sua contribuição pessoal precisa aparecer, mas você deve demonstrar compreensão do projeto como um todo.</p></details>
+  <details><summary>O que acontece quando os 90 segundos terminam?</summary><p>A apresentação é encerrada e a arguição começa. O critério Ritmo considera sua capacidade de priorizar e concluir dentro do tempo.</p></details>
+  <details><summary>O dia 10/12 é um segundo dia normal de escolha?</summary><p>Não. A previsão é realizar todas as apresentações em 09/12. O dia 10/12 funciona como data-reserva para situações excepcionais.</p></details>
+</section>
+
+<section class="section">
+  <div class="card" style="border-top:4px solid var(--teal)">
+    <div class="eyebrow">Lembrete final</div>
+    <h2 style="margin-bottom:8px">Domine o projeto. Não decore a apresentação.</h2>
+    <p style="font-size:1.12rem;max-width:900px">Em 90 segundos, ninguém consegue contar tudo. A qualidade está em escolher o que realmente demonstra compreensão, progresso, decisão e transformação.</p>
+  </div>
+</section>
+
+<div class="footer">UNIFEI - Campus Itabira • EPRI5002 Engenharia do Produto II • PROMETHEUS 2056 • Checkpoint 2 - Defesa Individual do Projeto</div>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+window.addEventListener('scroll',()=>{const d=document.documentElement;$('#prog').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%'});
+$('#teacherBtn').onclick=()=>{document.body.classList.toggle('teacher')};
+
+let left=90, tick=null;
+function draw(){
+  const m=Math.floor(left/60), s=left%60, el=$('#timer');
+  el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  el.classList.toggle('warn',left<=30 && left>10);
+  el.classList.toggle('danger',left<=10);
+}
+$('#startBtn').onclick=()=>{if(tick)return; tick=setInterval(()=>{if(left>0){left--;draw()}else{clearInterval(tick);tick=null}},1000)};
+$('#pauseBtn').onclick=()=>{clearInterval(tick);tick=null};
+$('#resetBtn').onclick=()=>{clearInterval(tick);tick=null;left=90;draw()};
+draw();
+</script>
+</body>
+</html>
