@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Construtor do Relatório Final | PROMETHEUS 2056 | Engenharia do Produto II</title>
+<style>
+:root{
+ --bg:#07131d;--panel:#0e2432;--panel2:#16384b;--paper:#fff;--ink:#f4fbfb;--muted:#acc1c8;
+ --teal:#28d7c2;--blue:#58aaff;--amber:#ffc857;--red:#ff7070;--green:#78e4a8;--purple:#b9a7ff;
+ --line:rgba(255,255,255,.12);--soft:rgba(255,255,255,.055);--shadow:0 18px 45px rgba(0,0,0,.24);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 5% 0%,rgba(40,215,194,.11),transparent 28%),radial-gradient(circle at 95% 5%,rgba(88,170,255,.09),transparent 30%),var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+button,input,textarea,select{font:inherit}a{color:inherit}
+.appbar{position:sticky;top:0;z-index:100;background:rgba(7,19,29,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.appbar-inner{max-width:1500px;margin:auto;padding:9px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.brand{font-weight:950;line-height:1.1}.brand small{display:block;color:var(--muted);font-weight:600;margin-top:3px}
+.toolbar{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}button,.btn{border:1px solid var(--line);color:var(--ink);background:var(--panel2);padding:8px 11px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+button:hover,.btn:hover{border-color:var(--teal)}button.primary{background:var(--teal);color:#04221f;border-color:var(--teal);font-weight:900}
+button.warn{border-color:rgba(255,200,87,.45)}button.danger{border-color:rgba(255,112,112,.45)}
+.progressbar{height:4px;background:#102a39}.progressbar>div{height:4px;background:linear-gradient(90deg,var(--teal),var(--amber),var(--blue));width:0}
+.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;padding:18px 16px 70px}
+.sidebar{position:sticky;top:75px;align-self:start;max-height:calc(100vh - 90px);overflow:auto;background:rgba(14,36,50,.88);border:1px solid var(--line);border-radius:18px;padding:14px}
+.sidebar h3{margin:0 0 10px}.overall{padding:12px;border-radius:12px;background:var(--soft);margin-bottom:12px}.overall strong{font-size:1.7rem;color:var(--amber)}.overall .bar{height:7px;border-radius:999px;background:#07131d;overflow:hidden;margin-top:7px}.overall .bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--blue))}
+.toc-group{margin:13px 0}.toc-group>b{display:block;color:var(--teal);font-size:.72rem;letter-spacing:.08em;margin-bottom:5px}
+.toc-group a{display:grid;grid-template-columns:30px 1fr 18px;gap:7px;text-decoration:none;padding:6px 7px;border-radius:8px;color:#dcebee;font-size:.82rem;align-items:start}.toc-group a:hover{background:var(--soft)}.toc-group a span{color:var(--amber);font-weight:900}.toc-group a em{font-style:normal;color:var(--muted);text-align:right}
+.main{min-width:0}.hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:25px;padding:30px;background:linear-gradient(135deg,rgba(14,86,92,.72),rgba(14,36,50,.98));box-shadow:var(--shadow)}.eyebrow{color:var(--teal);font-weight:900;letter-spacing:.13em;font-size:.75rem;text-transform:uppercase}.hero h1{font-size:clamp(2.2rem,4.7vw,4.7rem);line-height:.98;letter-spacing:-.045em;margin:7px 0 14px;max-width:1000px}.hero p{max-width:930px;color:#d9f3f0;font-size:1.08rem}.hero .thesis{margin-top:17px;border-left:4px solid var(--amber);background:rgba(255,200,87,.07);padding:15px 17px;border-radius:0 12px 12px 0;max-width:980px;font-weight:800}
+.mode-switch{display:flex;gap:7px;margin-top:18px;flex-wrap:wrap}.mode-switch button.active{background:var(--amber);color:#2b210a;border-color:var(--amber);font-weight:900}
+.n2{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:16px}.n2>div{border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:rgba(255,255,255,.05)}.n2 strong{display:block;color:var(--amber);font-size:1.3rem}.n2 small{color:#d8e9ec}
+.notice{margin:16px 0;padding:14px 16px;border-radius:13px;border-left:4px solid var(--teal);background:rgba(40,215,194,.07)}.notice.amber{border-left-color:var(--amber);background:rgba(255,200,87,.07)}.notice.red{border-left-color:var(--red);background:rgba(255,112,112,.06)}
+.chapter{scroll-margin-top:84px;margin-top:22px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(22,56,75,.95),rgba(14,36,50,.98));box-shadow:0 8px 24px rgba(0,0,0,.13);overflow:hidden}
+.chapter-head{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:start;padding:20px;border-bottom:1px solid var(--line)}.chapter-num{width:55px;height:55px;border-radius:15px;display:grid;place-items:center;background:rgba(255,200,87,.1);border:1px solid rgba(255,200,87,.3);font-weight:950;color:var(--amber);font-size:1.3rem}.chapter-head h2{margin:2px 0 5px;font-size:1.55rem}.chapter-head p{margin:0;color:var(--muted);max-width:900px}.macro-tag{font-size:.7rem;color:var(--teal);font-weight:900;letter-spacing:.09em}.chapter-status{font-size:.76rem;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.06);color:var(--muted);white-space:nowrap}.chapter-status.done{background:rgba(120,228,168,.1);color:#bcffd6;border:1px solid rgba(120,228,168,.25)}.chapter-status.partial{background:rgba(255,200,87,.1);color:#ffe7a4;border:1px solid rgba(255,200,87,.25)}
+.chapter-guidance{padding:11px 20px;background:rgba(88,170,255,.06);color:#dbeeff;border-bottom:1px solid var(--line);font-size:.9rem}
+.chapter-body{padding:20px}label{display:block;font-weight:800;font-size:.9rem;margin:10px 0}label input,label textarea,label select{font-weight:500}
+input[type=text],input[type=date],input:not([type]),textarea,select{width:100%;background:#091b27;color:var(--ink);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:10px 11px;margin-top:6px;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(40,215,194,.09)}textarea{min-height:130px;resize:vertical}.chapter-text{min-height:220px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}h4{margin:20px 0 8px;color:#dcfffa}
+.hint{color:var(--muted);font-size:.84rem;margin-top:0}
+.dyn-table{overflow:auto;border:1px solid var(--line);border-radius:13px;margin-top:9px}table{width:100%;border-collapse:collapse;min-width:650px}th,td{border-bottom:1px solid var(--line);padding:8px;vertical-align:top;text-align:left}th{background:rgba(255,255,255,.06);font-size:.78rem;color:#cffff7}td textarea,td input{min-width:120px;min-height:65px;margin:0;background:#091b27;color:var(--ink);border:1px solid rgba(255,255,255,.12);border-radius:7px;padding:7px;width:100%;resize:vertical}td input{min-height:auto}.add-row{margin:9px}.row-remove{padding:5px 7px;background:rgba(255,112,112,.08);border-color:rgba(255,112,112,.28);color:#ffd1d1}
+.prototype-panel{border-left:4px solid var(--amber);padding-left:14px}.scars-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.image-zone{margin-top:17px;border:1px dashed rgba(255,255,255,.2);border-radius:14px;padding:13px;background:rgba(255,255,255,.025)}.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}.gallery-item{position:relative;background:#091b27;border:1px solid var(--line);border-radius:12px;overflow:hidden}.gallery-item img{width:100%;height:180px;object-fit:contain;background:#fff}.gallery-item textarea{min-height:55px;border:0;border-top:1px solid var(--line);border-radius:0;margin:0}.gallery-item button{position:absolute;top:6px;right:6px;padding:4px 7px;background:rgba(0,0,0,.6)}
+.review-panel{display:none;margin-top:22px}body.review .review-panel{display:block}body.review .chapter-guidance{display:none}.audit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.audit-item{display:flex;gap:9px;align-items:flex-start;padding:11px;border:1px solid var(--line);border-radius:11px;background:var(--soft);font-weight:600}.audit-item input{margin-top:3px;accent-color:var(--teal)}.audit-score{font-size:2.2rem;font-weight:950;color:var(--amber)}.critical-list{margin-top:10px}
+.report-cover{display:none}body.report .sidebar,body.report .hero,body.report .review-panel,body.report .edit-only,body.report .chapter-guidance,body.report .appbar{display:none!important}body.report{background:#fff;color:#172b35}body.report .layout{display:block;max-width:900px;padding:0;margin:auto}body.report .report-cover{display:block;min-height:92vh;padding:80px 55px;border-bottom:1px solid #ccd7da}body.report .report-cover h1{font-size:2.4rem;line-height:1.05;color:#123241}body.report .report-cover .meta{margin-top:40px;display:grid;gap:8px}body.report .chapter{background:#fff;color:#172b35;border:0;border-radius:0;box-shadow:none;margin:0;padding:0;page-break-inside:auto}body.report .chapter-head{grid-template-columns:48px 1fr;border-bottom:1px solid #d4dee1;padding:28px 0 12px}body.report .chapter-head .chapter-status{display:none}body.report .chapter-head p{color:#556b75}body.report .chapter-body{padding:15px 0 28px}body.report .chapter-num{border-color:#cad5d8;background:#f2f5f6;color:#154e5b;width:42px;height:42px;border-radius:9px}body.report input,body.report textarea,body.report select{border:0!important;background:transparent!important;color:#172b35!important;padding:0!important;box-shadow:none!important;resize:none;overflow:visible;appearance:none}body.report textarea{min-height:unset;height:auto}body.report label{color:#172b35}body.report .hint{color:#60747c}body.report .dyn-table{border-color:#cbd6d9}body.report table{min-width:0}body.report th,body.report td{border-color:#d8e0e3;color:#172b35}body.report th{background:#eef3f4;color:#173f49}body.report td textarea,body.report td input{color:#172b35!important}body.report .gallery-item{background:#fff;border-color:#ccd7da}body.report .gallery-item textarea{border-top-color:#ccd7da}body.report h4{color:#143b44}body.report .prototype-panel{border-left-color:#c08a15}
+.report-empty{color:#9aa8ad;font-style:italic}
+.save-state{font-size:.76rem;color:var(--muted);padding:0 4px}.report-toolbar{display:none}.report-toolbar button{box-shadow:0 8px 24px rgba(0,0,0,.18)}body.report .report-toolbar{display:flex;position:fixed;right:18px;bottom:18px;z-index:150;gap:8px}body.report .full-label{font-size:0}body.report .full-label textarea{font-size:11pt;line-height:1.5}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:200;display:none;place-items:center;padding:18px}.modal.show{display:grid}.modal-card{max-width:760px;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;max-height:90vh;overflow:auto}.modal-card h2{margin-top:0}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.sidebar{position:static;max-height:none}.n2{grid-template-columns:repeat(3,1fr)}.gallery{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.grid2,.scars-grid,.audit-grid{grid-template-columns:1fr}.n2{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:1fr}.chapter-head{grid-template-columns:50px 1fr}.chapter-status{grid-column:2}.toolbar{justify-content:flex-start}.appbar-inner{align-items:flex-start;flex-direction:column}}
+@media print{.report-toolbar{display:none!important}body{background:#fff}body:not(.report) .appbar,body:not(.report) .sidebar{display:none!important}body:not(.report) .layout{display:block;max-width:900px}@page{size:A4;margin:18mm 16mm}body.report .report-cover{min-height:245mm;page-break-after:always;padding:45mm 10mm 10mm}body.report .chapter-head{page-break-after:avoid}body.report .chapter{page-break-inside:auto}body.report .gallery-item{break-inside:avoid}}
+</style>
+</head>
+<body class="edit">
+<header class="appbar">
+  <div class="appbar-inner">
+    <div class="brand">PROMETHEUS 2056<small>Construtor do Relatório Técnico Final · Engenharia do Produto II</small></div>
+    <div class="toolbar">
+      <a class="btn" href="Template_Relatorio_Tecnico_Final_PROMETHEUS_2056_Engenharia_Produto_II.docx" download>Baixar template editável (.docx)</a>
+      <a class="btn" href="Template_Relatorio_Tecnico_Final_PROMETHEUS_2056_Engenharia_Produto_II.pdf" target="_blank" rel="noopener">Visualizar template em PDF</a>
+      <span class="save-state" id="saveState">Salvo localmente</span>
+      <button id="saveJson">Salvar projeto (.json)</button>
+      <label class="btn">Carregar projeto<input id="loadJson" type="file" accept=".json,application/json" hidden></label>
+      <button id="openReview">Revisar</button>
+      <button id="openReport" class="primary">Gerar relatório</button>
+    </div>
+  </div>
+  <div class="progressbar"><div id="topProgress"></div></div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <h3>Progresso do relatório</h3>
+  <div class="overall"><strong id="progressPct">0%</strong><div>seções com conteúdo</div><div class="bar"><span id="progressMini"></span></div></div>
+  <div class="toc-group"><b>A · IDENTIDADE E SÍNTESE</b>
+<a href="#sec-1" data-toc="1"><span>01</span>Identificação da Squad<em id="tocstate-1">○</em></a>
+<a href="#sec-2" data-toc="2"><span>02</span>Resumo executivo do projeto<em id="tocstate-2">○</em></a>
+<a href="#sec-3" data-toc="3"><span>03</span>Pergunta direcionadora<em id="tocstate-3">○</em></a>
+</div>
+<div class="toc-group"><b>B · DE ONDE PARTIMOS</b>
+<a href="#sec-4" data-toc="4"><span>04</span>Produto original — 2026<em id="tocstate-4">○</em></a>
+<a href="#sec-5" data-toc="5"><span>05</span>História e evolução do produto<em id="tocstate-5">○</em></a>
+<a href="#sec-6" data-toc="6"><span>06</span>Usuários e necessidades<em id="tocstate-6">○</em></a>
+<a href="#sec-7" data-toc="7"><span>07</span>Diagnóstico do produto atual<em id="tocstate-7">○</em></a>
+<a href="#sec-8" data-toc="8"><span>08</span>QFD e requisitos<em id="tocstate-8">○</em></a>
+</div>
+<div class="toc-group"><b>C · DO PRESENTE AO FUTURO</b>
+<a href="#sec-9" data-toc="9"><span>09</span>Vetores de transformação 2026–2056<em id="tocstate-9">○</em></a>
+<a href="#sec-10" data-toc="10"><span>10</span>Conceitualização<em id="tocstate-10">○</em></a>
+<a href="#sec-11" data-toc="11"><span>11</span>Alternativas geradas<em id="tocstate-11">○</em></a>
+<a href="#sec-12" data-toc="12"><span>12</span>Processo de escolha<em id="tocstate-12">○</em></a>
+</div>
+<div class="toc-group"><b>D · ENGENHARIA DA SOLUÇÃO</b>
+<a href="#sec-13" data-toc="13"><span>13</span>Engenharia da solução<em id="tocstate-13">○</em></a>
+<a href="#sec-14" data-toc="14"><span>14</span>DFX<em id="tocstate-14">○</em></a>
+<a href="#sec-15" data-toc="15"><span>15</span>Materiais, produção e montagem<em id="tocstate-15">○</em></a>
+<a href="#sec-16" data-toc="16"><span>16</span>Protótipo final<em id="tocstate-16">○</em></a>
+</div>
+<div class="toc-group"><b>E · TESTAR E COMPREENDER</b>
+<a href="#sec-17" data-toc="17"><span>17</span>Experimentos e testes<em id="tocstate-17">○</em></a>
+<a href="#sec-18" data-toc="18"><span>18</span>Ergonomia e experiência<em id="tocstate-18">○</em></a>
+</div>
+<div class="toc-group"><b>F · FAZER O PRODUTO SOBREVIVER ATÉ 2056</b>
+<a href="#sec-19" data-toc="19"><span>19</span>Sustentabilidade e longevidade<em id="tocstate-19">○</em></a>
+<a href="#sec-20" data-toc="20"><span>20</span>Apropriação<em id="tocstate-20">○</em></a>
+<a href="#sec-21" data-toc="21"><span>21</span>Difusão<em id="tocstate-21">○</em></a>
+<a href="#sec-22" data-toc="22"><span>22</span>Roadmap 2026–2056<em id="tocstate-22">○</em></a>
+<a href="#sec-23" data-toc="23"><span>23</span>Estratégia de permanência e adaptação<em id="tocstate-23">○</em></a>
+</div>
+<div class="toc-group"><b>G · PENSAMENTO CRÍTICO</b>
+<a href="#sec-24" data-toc="24"><span>24</span>Incertezas<em id="tocstate-24">○</em></a>
+<a href="#sec-25" data-toc="25"><span>25</span>Limitações<em id="tocstate-25">○</em></a>
+<a href="#sec-26" data-toc="26"><span>26</span>Registro de evolução<em id="tocstate-26">○</em></a>
+<a href="#sec-27" data-toc="27"><span>27</span>Cicatrizes do projeto<em id="tocstate-27">○</em></a>
+</div>
+<div class="toc-group"><b>H · FECHAMENTO</b>
+<a href="#sec-28" data-toc="28"><span>28</span>Conclusão — resposta final à pergunta direcionadora<em id="tocstate-28">○</em></a>
+<a href="#sec-29" data-toc="29"><span>29</span>Referências<em id="tocstate-29">○</em></a>
+<a href="#sec-30" data-toc="30"><span>30</span>Anexos<em id="tocstate-30">○</em></a>
+</div>
+</aside>
+
+<main class="main">
+  <section class="hero">
+    <div class="eyebrow">EPRI5002 · Engenharia do Produto II · Entrega Final</div>
+    <h1>Construtor do Relatório Técnico Final</h1>
+    <p>Preencha o relatório diretamente neste arquivo. O sistema salva seu progresso no navegador, permite exportar/importar o projeto e gera uma versão limpa para impressão ou salvamento em PDF.</p>
+    <div class="thesis">Regra central: <b>mostrem mudança, não volume.</b> O relatório deve permitir reconstruir como evidências transformaram o entendimento, as decisões e o produto.</div>
+    <div class="mode-switch">
+      <button class="active" data-mode="edit">1 · Preencher</button>
+      <button data-mode="review">2 · Revisar</button>
+      <button data-mode="report">3 · Relatório</button>
+    </div>
+    <div class="n2">
+      <div><strong>30</strong><small>Relatório Final</small></div>
+      <div><strong>10</strong><small>Protótipo Final</small></div>
+      <div><strong>25</strong><small>Checkpoint 2</small></div>
+      <div><strong>10</strong><small>Checkpoint 1</small></div>
+      <div><strong>20</strong><small>Participação</small></div>
+      <div><strong>5</strong><small>Avaliação 360°</small></div>
+    </div>
+  </section>
+
+  <div class="notice amber">
+    <b>Protótipo mínimo: conceitual.</b> Um protótipo conceitual não é apenas uma imagem bonita: ele precisa tornar a solução suficientemente concreta para compreender forma, funcionamento, arquitetura, dimensões relevantes, experiência de uso e decisões de engenharia.
+  </div>
+
+  <section class="review-panel card-like" id="reviewPanel">
+    <div class="chapter">
+      <div class="chapter-head"><div class="chapter-num">✓</div><div><div class="macro-tag">AUDITORIA</div><h2>Revisão antes da entrega</h2><p>Marque somente o que você conferiu de fato. O percentual abaixo não substitui a avaliação do professor; ele serve para encontrar lacunas.</p></div></div>
+      <div class="chapter-body">
+        <div class="audit-score"><span id="auditPct">0%</span> da auditoria concluída</div>
+        <div class="audit-grid"><label class="audit-item"><input type="checkbox" data-audit="a1"><span>Todos os 30 capítulos foram revisados e não há seções vazias críticas.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a2"><span>O relatório mostra mudanças reais do projeto, e não apenas uma sequência de ferramentas.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a3"><span>Existe ligação clara entre necessidades/QFD e decisões da solução.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a4"><span>O capítulo do protótipo explica o que ele representa e o que não representa.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a5"><span>Há evidências visuais suficientes do protótipo.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a6"><span>Os testes mostram pergunta, evidência, interpretação e decisão.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a7"><span>O roadmap e a estratégia de permanência tratam 2056 como horizonte de adaptação, não como previsão exata.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a8"><span>Incertezas e limitações são reconhecidas explicitamente.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a9"><span>O registro de evolução permite reconstruir evidência → interpretação → decisão → transformação.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a10"><span>As Cicatrizes do Projeto registram pelo menos um erro, abandono, revisão ou aprendizado relevante.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a11"><span>A conclusão responde diretamente à pergunta direcionadora.</span></label>
+<label class="audit-item"><input type="checkbox" data-audit="a12"><span>Todas as fontes externas usadas aparecem nas referências.</span></label></div>
+        <div class="notice red critical-list"><b>Lacunas críticas detectadas:</b><div id="criticalOutput">Preencha o relatório para iniciar a auditoria automática.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="report-cover">
+    <div class="eyebrow" style="color:#18786e">UNIFEI · Campus Itabira · EPRI5002</div>
+    <h1>PROMETHEUS 2056<br>Relatório Técnico Final</h1>
+    <div class="meta">
+      <div><b>Título:</b> <span data-report="s1_titulo">—</span></div>
+      <div><b>Squad:</b> <span data-report="s1_squad">—</span></div>
+      <div><b>Produto:</b> <span data-report="s1_produto">—</span></div>
+      <div><b>Modelo:</b> <span data-report="s1_modelo">—</span></div>
+      <div><b>Data:</b> <span data-report="s1_data">—</span></div>
+    </div>
+    <div style="margin-top:70px;font-size:1.2rem"><b>Pergunta direcionadora</b><br>Como inovar o produto escolhido hoje para garantir sua existência e relevância daqui a 30 anos?</div>
+  </section>
+
+  
+    <section class="chapter" id="sec-1" data-section="1">
+      <div class="chapter-head">
+        <div class="chapter-num">01</div>
+        <div>
+          <div class="macro-tag">IDENTIDADE E SÍNTESE</div>
+          <h2>Identificação da Squad</h2>
+          <p>Identifique a Squad, os integrantes, especialidades, liderança, produto e título final.</p>
+        </div>
+        <div class="chapter-status" id="status-1">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+      <div class="grid2">
+        <label>Nome da Squad<input data-key="s1_squad" placeholder="Ex.: Squad 2"></label>
+        <label>Produto escolhido<input data-key="s1_produto" placeholder="Produto físico estudado"></label>
+        <label>Versão / modelo<input data-key="s1_modelo" placeholder="Modelo analisado"></label>
+        <label>Título final<input data-key="s1_titulo" placeholder="Título final do projeto"></label>
+        <label>Liderança vigente<input data-key="s1_lider" placeholder="Nome"></label>
+        <label>Data da entrega<input data-key="s1_data" type="date"></label>
+      </div>
+      <h4>Integrantes e especialidades</h4>
+      <div class="dyn-table" data-table="members">
+        <table><thead><tr><th>Integrante</th><th>Especialidade</th><th>Contribuição-chave</th><th class="edit-only"></th></tr></thead><tbody></tbody></table>
+        <button class="add-row edit-only" data-add="members">+ Adicionar integrante</button>
+      </div>
+    </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-2" data-section="2">
+      <div class="chapter-head">
+        <div class="chapter-num">02</div>
+        <div>
+          <div class="macro-tag">IDENTIDADE E SÍNTESE</div>
+          <h2>Resumo executivo do projeto</h2>
+          <p>Sintetize problema, trajetória, principais evidências, solução final, protótipo alcançado e perspectiva até 2056.</p>
+        </div>
+        <div class="chapter-status" id="status-2">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s2_text" placeholder="Escreva o resumo executivo em texto corrido. Um leitor deve entender o projeto inteiro sem consultar as demais seções."></textarea>
+        </label>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-3" data-section="3">
+      <div class="chapter-head">
+        <div class="chapter-num">03</div>
+        <div>
+          <div class="macro-tag">IDENTIDADE E SÍNTESE</div>
+          <h2>Pergunta direcionadora</h2>
+          <p>Apresente a pergunta do projeto e a resposta construída pela Squad.</p>
+        </div>
+        <div class="chapter-status" id="status-3">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s3_text" placeholder="Apresente a pergunta direcionadora e, em seguida, formule a resposta da Squad de maneira objetiva."></textarea>
+        </label>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-4" data-section="4">
+      <div class="chapter-head">
+        <div class="chapter-num">04</div>
+        <div>
+          <div class="macro-tag">DE ONDE PARTIMOS</div>
+          <h2>Produto original — 2026</h2>
+          <p>Descreva tecnicamente o produto de partida, seu funcionamento, arquitetura, materiais, contexto de uso e limitações.</p>
+        </div>
+        <div class="chapter-status" id="status-4">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s4_text" placeholder="Inclua dados técnicos, função principal, contexto de uso, arquitetura, materiais e limitações do produto em 2026."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="4">
+          <div class="gallery" id="gallery-4"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-5" data-section="5">
+      <div class="chapter-head">
+        <div class="chapter-num">05</div>
+        <div>
+          <div class="macro-tag">DE ONDE PARTIMOS</div>
+          <h2>História e evolução do produto</h2>
+          <p>Mostre como o produto chegou à configuração atual e quais transformações históricas foram relevantes.</p>
+        </div>
+        <div class="chapter-status" id="status-5">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s5_text" placeholder="Mostre transformações importantes do produto ao longo do tempo e o que elas ensinam sobre sua possível evolução."></textarea>
+        </label>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-6" data-section="6">
+      <div class="chapter-head">
+        <div class="chapter-num">06</div>
+        <div>
+          <div class="macro-tag">DE ONDE PARTIMOS</div>
+          <h2>Usuários e necessidades</h2>
+          <p>Apresente usuários, contextos de uso, necessidades e evidências que sustentam sua compreensão.</p>
+        </div>
+        <div class="chapter-status" id="status-6">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s6_text" placeholder="Diferencie necessidades humanas de soluções existentes. Mostre evidências reais de usuário quando disponíveis."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="6">
+          <div class="gallery" id="gallery-6"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-7" data-section="7">
+      <div class="chapter-head">
+        <div class="chapter-num">07</div>
+        <div>
+          <div class="macro-tag">DE ONDE PARTIMOS</div>
+          <h2>Diagnóstico do produto atual</h2>
+          <p>Consolide forças, limitações, problemas, oportunidades e tensões do produto em 2026.</p>
+        </div>
+        <div class="chapter-status" id="status-7">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s7_text" placeholder="Consolide o diagnóstico. Evite repetir descrições; interprete o que os dados significam para o projeto."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="7">
+          <div class="gallery" id="gallery-7"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-8" data-section="8">
+      <div class="chapter-head">
+        <div class="chapter-num">08</div>
+        <div>
+          <div class="macro-tag">DE ONDE PARTIMOS</div>
+          <h2>QFD e requisitos</h2>
+          <p>Mostre como as necessidades foram traduzidas em requisitos e parâmetros priorizados.</p>
+        </div>
+        <div class="chapter-status" id="status-8">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+      <h4>Requisitos priorizados</h4>
+      <div class="dyn-table" data-table="requirements">
+        <table><thead><tr><th>Necessidade / requisito</th><th>Importância</th><th>Parâmetro técnico</th><th>Meta</th><th>Evidência</th><th class="edit-only"></th></tr></thead><tbody></tbody></table>
+        <button class="add-row edit-only" data-add="requirements">+ Adicionar requisito</button>
+      </div>
+    </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-9" data-section="9">
+      <div class="chapter-head">
+        <div class="chapter-num">09</div>
+        <div>
+          <div class="macro-tag">DO PRESENTE AO FUTURO</div>
+          <h2>Vetores de transformação 2026–2056</h2>
+          <p>Identifique forças de mudança tecnológicas, sociais, ambientais, econômicas, regulatórias e culturais relevantes.</p>
+        </div>
+        <div class="chapter-status" id="status-9">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s9_text" placeholder="Organize os vetores mais relevantes e explique como cada um pode ameaçar, transformar ou ampliar a solução."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="9">
+          <div class="gallery" id="gallery-9"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-10" data-section="10">
+      <div class="chapter-head">
+        <div class="chapter-num">10</div>
+        <div>
+          <div class="macro-tag">DO PRESENTE AO FUTURO</div>
+          <h2>Conceitualização</h2>
+          <p>Defina a essência do produto e os princípios que devem permanecer ou evoluir.</p>
+        </div>
+        <div class="chapter-status" id="status-10">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s10_text" placeholder="Defina a essência do produto: que necessidade/função deve sobreviver mesmo se tecnologias específicas mudarem?"></textarea>
+        </label>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-11" data-section="11">
+      <div class="chapter-head">
+        <div class="chapter-num">11</div>
+        <div>
+          <div class="macro-tag">DO PRESENTE AO FUTURO</div>
+          <h2>Alternativas geradas</h2>
+          <p>Registre alternativas realmente consideradas, incluindo propostas descartadas.</p>
+        </div>
+        <div class="chapter-status" id="status-11">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+      <h4>Alternativas consideradas</h4>
+      <div class="dyn-table" data-table="alternatives">
+        <table><thead><tr><th>Alternativa</th><th>Descrição</th><th>Pontos fortes</th><th>Limitações</th><th>Status</th><th class="edit-only"></th></tr></thead><tbody></tbody></table>
+        <button class="add-row edit-only" data-add="alternatives">+ Adicionar alternativa</button>
+      </div>
+    </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-12" data-section="12">
+      <div class="chapter-head">
+        <div class="chapter-num">12</div>
+        <div>
+          <div class="macro-tag">DO PRESENTE AO FUTURO</div>
+          <h2>Processo de escolha</h2>
+          <p>Explique os critérios utilizados e por que a solução escolhida venceu as demais.</p>
+        </div>
+        <div class="chapter-status" id="status-12">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s12_text" placeholder="Mostre os critérios de escolha e os trade-offs. Explique por que a solução escolhida é defensável."></textarea>
+        </label>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-13" data-section="13">
+      <div class="chapter-head">
+        <div class="chapter-num">13</div>
+        <div>
+          <div class="macro-tag">ENGENHARIA DA SOLUÇÃO</div>
+          <h2>Engenharia da solução</h2>
+          <p>Descreva arquitetura, funções, componentes, interfaces, dimensões e decisões de engenharia.</p>
+        </div>
+        <div class="chapter-status" id="status-13">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s13_text" placeholder="Descreva a solução final com precisão suficiente para que outra pessoa compreenda sua arquitetura e funcionamento."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="13">
+          <div class="gallery" id="gallery-13"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-14" data-section="14">
+      <div class="chapter-head">
+        <div class="chapter-num">14</div>
+        <div>
+          <div class="macro-tag">ENGENHARIA DA SOLUÇÃO</div>
+          <h2>DFX</h2>
+          <p>Mostre como critérios de Design for X alteraram ou confirmaram decisões da solução.</p>
+        </div>
+        <div class="chapter-status" id="status-14">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s14_text" placeholder="Explique quais dimensões DFX foram aplicadas e quais decisões mudaram por causa delas."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="14">
+          <div class="gallery" id="gallery-14"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-15" data-section="15">
+      <div class="chapter-head">
+        <div class="chapter-num">15</div>
+        <div>
+          <div class="macro-tag">ENGENHARIA DA SOLUÇÃO</div>
+          <h2>Materiais, produção e montagem</h2>
+          <p>Justifique materiais, processos, montagem, manutenção e implicações de fabricação.</p>
+        </div>
+        <div class="chapter-status" id="status-15">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s15_text" placeholder="Justifique materiais e processos. Reconheça hipóteses quando ainda não houver validação técnica suficiente."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="15">
+          <div class="gallery" id="gallery-15"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-16" data-section="16">
+      <div class="chapter-head">
+        <div class="chapter-num">16</div>
+        <div>
+          <div class="macro-tag">ENGENHARIA DA SOLUÇÃO</div>
+          <h2>Protótipo final</h2>
+          <p>Documente o protótipo alcançado, o que ele representa, como foi construído, o que demonstra e suas limitações.</p>
+        </div>
+        <div class="chapter-status" id="status-16">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+      <div class="prototype-panel">
+        <div class="grid2">
+          <label>Nível do protótipo
+            <select data-key="s16_level">
+              <option value="">Selecione</option>
+              <option>Protótipo conceitual</option>
+              <option>Mockup</option>
+              <option>Protótipo de aparência</option>
+              <option>Protótipo funcional parcial</option>
+              <option>Protótipo funcional</option>
+              <option>Outro</option>
+            </select>
+          </label>
+          <label>Identificação da versão<input data-key="s16_version" placeholder="Ex.: Protótipo v3"></label>
+        </div>
+        <label>Objetivo do protótipo<textarea data-key="s16_objective" placeholder="O que ele permite compreender, demonstrar ou testar?"></textarea></label>
+        <div class="grid2">
+          <label>O que o protótipo representa<textarea data-key="s16_represents" placeholder="Forma, arquitetura, interação, mecanismo, dimensões, materiais..."></textarea></label>
+          <label>O que o protótipo NÃO representa<textarea data-key="s16_notrep" placeholder="Deixe explícitas as fronteiras da representação."></textarea></label>
+        </div>
+        <label>Como foi construído<textarea data-key="s16_build" placeholder="Ferramentas, softwares, materiais, processos, fabricação..."></textarea></label>
+        <h4>Rastreabilidade requisito → protótipo</h4>
+        <div class="dyn-table" data-table="protoReq">
+          <table><thead><tr><th>Requisito</th><th>Como aparece no protótipo</th><th>Evidência / vista / teste</th><th class="edit-only"></th></tr></thead><tbody></tbody></table>
+          <button class="add-row edit-only" data-add="protoReq">+ Adicionar requisito</button>
+        </div>
+        <h4>Evolução do protótipo</h4>
+        <div class="dyn-table" data-table="protoEvolution">
+          <table><thead><tr><th>Versão</th><th>Problema / descoberta</th><th>Mudança realizada</th><th>Aprendizado</th><th class="edit-only"></th></tr></thead><tbody></tbody></table>
+          <button class="add-row edit-only" data-add="protoEvolution">+ Adicionar versão</button>
+        </div>
+        <div class="grid2">
+          <label>Limitações do protótipo<textarea data-key="s16_limits"></textarea></label>
+          <label>Próxima versão<textarea data-key="s16_next" placeholder="Se houvesse mais um ciclo, o que seria prototipado a seguir?"></textarea></label>
+        </div>
+        <div class="image-zone">
+          <h4>Evidências visuais do protótipo</h4>
+          <p class="hint">Adicione fotografias, renders, CAD, vistas, diagramas ou imagens do processo. Elas aparecerão também no modo Relatório.</p>
+          <input class="edit-only" type="file" id="protoImageInput" accept="image/*" multiple>
+          <div id="protoGallery" class="gallery"></div>
+        </div>
+      </div>
+    </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-17" data-section="17">
+      <div class="chapter-head">
+        <div class="chapter-num">17</div>
+        <div>
+          <div class="macro-tag">TESTAR E COMPREENDER</div>
+          <h2>Experimentos e testes</h2>
+          <p>Documente perguntas de teste, procedimento, evidências, resultados, interpretação e mudanças decorrentes.</p>
+        </div>
+        <div class="chapter-status" id="status-17">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+      <h4>Registro de experimentos e testes</h4>
+      <div class="dyn-table" data-table="tests">
+        <table><thead><tr><th>Pergunta / hipótese</th><th>Procedimento</th><th>Evidência / resultado</th><th>Interpretação</th><th>Decisão / mudança</th><th class="edit-only"></th></tr></thead><tbody></tbody></table>
+        <button class="add-row edit-only" data-add="tests">+ Adicionar teste</button>
+      </div>
+    </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-18" data-section="18">
+      <div class="chapter-head">
+        <div class="chapter-num">18</div>
+        <div>
+          <div class="macro-tag">TESTAR E COMPREENDER</div>
+          <h2>Ergonomia e experiência</h2>
+          <p>Avalie interação, conforto, segurança, usabilidade, acessibilidade e experiência.</p>
+        </div>
+        <div class="chapter-status" id="status-18">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s18_text" placeholder="Relacione ergonomia e experiência a usuários e requisitos. Mostre evidências sempre que existirem."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="18">
+          <div class="gallery" id="gallery-18"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-19" data-section="19">
+      <div class="chapter-head">
+        <div class="chapter-num">19</div>
+        <div>
+          <div class="macro-tag">FAZER O PRODUTO SOBREVIVER ATÉ 2056</div>
+          <h2>Sustentabilidade e longevidade</h2>
+          <p>Discuta ciclo de vida, reparabilidade, modularidade, recursos, descarte, regeneração e permanência.</p>
+        </div>
+        <div class="chapter-status" id="status-19">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s19_text" placeholder="Discuta longevidade em sentido técnico, ambiental e de manutenção — não apenas reciclagem."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="19">
+          <div class="gallery" id="gallery-19"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-20" data-section="20">
+      <div class="chapter-head">
+        <div class="chapter-num">20</div>
+        <div>
+          <div class="macro-tag">FAZER O PRODUTO SOBREVIVER ATÉ 2056</div>
+          <h2>Apropriação</h2>
+          <p>Explique como o conjunto do projeto foi integrado e apropriado pela Squad.</p>
+        </div>
+        <div class="chapter-status" id="status-20">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s20_text" placeholder="Explique como as partes do projeto foram integradas e como a Squad consolidou uma visão comum da solução."></textarea>
+        </label>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-21" data-section="21">
+      <div class="chapter-head">
+        <div class="chapter-num">21</div>
+        <div>
+          <div class="macro-tag">FAZER O PRODUTO SOBREVIVER ATÉ 2056</div>
+          <h2>Difusão</h2>
+          <p>Discuta adoção, produção, comercialização, escala geográfica e escala temporal.</p>
+        </div>
+        <div class="chapter-status" id="status-21">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s21_text" placeholder="Explique como a solução poderia ser adotada, produzida, comercializada e escalada."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="21">
+          <div class="gallery" id="gallery-21"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-22" data-section="22">
+      <div class="chapter-head">
+        <div class="chapter-num">22</div>
+        <div>
+          <div class="macro-tag">FAZER O PRODUTO SOBREVIVER ATÉ 2056</div>
+          <h2>Roadmap 2026–2056</h2>
+          <p>Organize marcos, transições, versões, capacidades e gatilhos ao longo dos 30 anos.</p>
+        </div>
+        <div class="chapter-status" id="status-22">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+      <h4>Roadmap 2026–2056</h4>
+      <div class="dyn-table" data-table="roadmap">
+        <table><thead><tr><th>Horizonte / ano</th><th>Mudança / versão</th><th>Capacidade necessária</th><th>Gatilho / evidência para revisão</th><th class="edit-only"></th></tr></thead><tbody></tbody></table>
+        <button class="add-row edit-only" data-add="roadmap">+ Adicionar marco</button>
+      </div>
+    
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="22">
+          <div class="gallery" id="gallery-22"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-23" data-section="23">
+      <div class="chapter-head">
+        <div class="chapter-num">23</div>
+        <div>
+          <div class="macro-tag">FAZER O PRODUTO SOBREVIVER ATÉ 2056</div>
+          <h2>Estratégia de permanência e adaptação</h2>
+          <p>Explique como a solução poderá aprender, mudar e permanecer relevante em futuros diferentes.</p>
+        </div>
+        <div class="chapter-status" id="status-23">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s23_text" placeholder="Defina mecanismos de adaptação: modularidade, atualização, monitoramento, ecossistema, governança ou outros."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="23">
+          <div class="gallery" id="gallery-23"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-24" data-section="24">
+      <div class="chapter-head">
+        <div class="chapter-num">24</div>
+        <div>
+          <div class="macro-tag">PENSAMENTO CRÍTICO</div>
+          <h2>Incertezas</h2>
+          <p>Registre incertezas relevantes, impactos e formas de monitoramento.</p>
+        </div>
+        <div class="chapter-status" id="status-24">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+      <h4>Mapa de incertezas</h4>
+      <div class="dyn-table" data-table="uncertainties">
+        <table><thead><tr><th>Incerteza</th><th>Por que importa</th><th>Impacto potencial</th><th>Como monitorar</th><th class="edit-only"></th></tr></thead><tbody></tbody></table>
+        <button class="add-row edit-only" data-add="uncertainties">+ Adicionar incerteza</button>
+      </div>
+    </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-25" data-section="25">
+      <div class="chapter-head">
+        <div class="chapter-num">25</div>
+        <div>
+          <div class="macro-tag">PENSAMENTO CRÍTICO</div>
+          <h2>Limitações</h2>
+          <p>Reconheça limitações da solução, das evidências, dos testes, do protótipo e do horizonte futuro.</p>
+        </div>
+        <div class="chapter-status" id="status-25">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s25_text" placeholder="Reconheça limitações reais. Limitação não é justificativa genérica; indique o que não foi possível concluir."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="25">
+          <div class="gallery" id="gallery-25"></div>
+        </div>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-26" data-section="26">
+      <div class="chapter-head">
+        <div class="chapter-num">26</div>
+        <div>
+          <div class="macro-tag">PENSAMENTO CRÍTICO</div>
+          <h2>Registro de evolução</h2>
+          <p>Reconstrua o caminho: crença → evidência → interpretação → decisão → transformação.</p>
+        </div>
+        <div class="chapter-status" id="status-26">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+      <h4>Rastreabilidade do progresso</h4>
+      <div class="dyn-table" data-table="evolution">
+        <table><thead><tr><th>O que acreditávamos</th><th>Evidência encontrada</th><th>Interpretação</th><th>Decisão</th><th>O que mudou</th><th class="edit-only"></th></tr></thead><tbody></tbody></table>
+        <button class="add-row edit-only" data-add="evolution">+ Adicionar transformação</button>
+      </div>
+    </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-27" data-section="27">
+      <div class="chapter-head">
+        <div class="chapter-num">27</div>
+        <div>
+          <div class="macro-tag">PENSAMENTO CRÍTICO</div>
+          <h2>Cicatrizes do projeto</h2>
+          <p>Mostre hipóteses erradas, ideias abandonadas, testes inesperados, decisões revistas e aprendizados.</p>
+        </div>
+        <div class="chapter-status" id="status-27">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+      <div class="scars-grid">
+        <label>Uma hipótese relevante que estava errada<textarea data-key="s27_wrong"></textarea></label>
+        <label>Uma ideia abandonada<textarea data-key="s27_abandoned"></textarea></label>
+        <label>Um teste que não produziu o resultado esperado<textarea data-key="s27_test"></textarea></label>
+        <label>Uma decisão revista<textarea data-key="s27_decision"></textarea></label>
+        <label>Um feedback que modificou o projeto<textarea data-key="s27_feedback"></textarea></label>
+        <label>Um aprendizado inesperado<textarea data-key="s27_learning"></textarea></label>
+      </div>
+    </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-28" data-section="28">
+      <div class="chapter-head">
+        <div class="chapter-num">28</div>
+        <div>
+          <div class="macro-tag">FECHAMENTO</div>
+          <h2>Conclusão — resposta final à pergunta direcionadora</h2>
+          <p>Responda como a solução desenvolvida pode continuar existindo e sendo relevante em 2056, e o que precisará continuar mudando.</p>
+        </div>
+        <div class="chapter-status" id="status-28">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s28_text" placeholder="Responda diretamente à pergunta direcionadora. Mostre o que foi alcançado e o que ainda dependerá de adaptação."></textarea>
+        </label>
+        </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-29" data-section="29">
+      <div class="chapter-head">
+        <div class="chapter-num">29</div>
+        <div>
+          <div class="macro-tag">FECHAMENTO</div>
+          <h2>Referências</h2>
+          <p>Liste todas as fontes utilizadas, adotando um padrão consistente.</p>
+        </div>
+        <div class="chapter-status" id="status-29">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+      <h4>Referências</h4>
+      <div class="dyn-table" data-table="refs">
+        <table><thead><tr><th>Referência completa</th><th>Link / DOI (se houver)</th><th class="edit-only"></th></tr></thead><tbody></tbody></table>
+        <button class="add-row edit-only" data-add="refs">+ Adicionar referência</button>
+      </div>
+    </div>
+    </section>
+    
+
+    <section class="chapter" id="sec-30" data-section="30">
+      <div class="chapter-head">
+        <div class="chapter-num">30</div>
+        <div>
+          <div class="macro-tag">FECHAMENTO</div>
+          <h2>Anexos</h2>
+          <p>Inclua materiais extensos ou de apoio: QFD completo, dados brutos, desenhos, formulários, cálculos, links e outros.</p>
+        </div>
+        <div class="chapter-status" id="status-30">Pendente</div>
+      </div>
+      <div class="chapter-guidance edit-only">
+        <b>Como usar esta seção:</b> preencha com aquilo que foi efetivamente desenvolvido. Quando houver incerteza ou ausência de evidência, registre isso de forma explícita.
+      </div>
+      <div class="chapter-body">
+        <label class="full-label">Conteúdo da seção
+          <textarea class="chapter-text" data-key="s30_text" placeholder="Liste os anexos incluídos e explique brevemente a função de cada um."></textarea>
+        </label>
+        
+        <div class="image-zone">
+          <h4>Evidências visuais desta seção</h4>
+          <p class="hint">Opcional: fotografias, diagramas, gráficos, esquemas ou outras evidências relevantes.</p>
+          <input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="30">
+          <div class="gallery" id="gallery-30"></div>
+        </div>
+        </div>
+    </section>
+    
+
+  <div class="notice edit-only" style="margin-top:22px">
+    <b>Para entregar:</b> use o modo <b>Relatório</b>, revise o resultado e clique em <b>Imprimir / Salvar PDF</b>. O PDF é a versão congelada da entrega.
+  </div>
+</main>
+</div>
+
+<div class="report-toolbar no-print">
+  <button id="backToEdit">Voltar a editar</button>
+  <button id="reportPrint" class="primary">Imprimir / Salvar PDF</button>
+</div>
+
+<div class="modal" id="reportModal">
+  <div class="modal-card">
+    <h2>Relatório pronto para revisão final</h2>
+    <p>O modo Relatório remove as orientações e apresenta apenas o conteúdo preenchido. Antes de gerar o PDF, confira paginação, imagens e tabelas.</p>
+    <div class="notice amber"><b>Importante:</b> o navegador não envia nada automaticamente. Salve seu projeto em JSON e guarde uma cópia antes de fechar ou trocar de computador.</div>
+    <div class="toolbar">
+      <button id="goReport" class="primary">Abrir modo Relatório</button>
+      <button id="printPdf">Imprimir / Salvar PDF</button>
+      <button id="closeModal">Voltar</button>
+    </div>
+  </div>
+</div>
