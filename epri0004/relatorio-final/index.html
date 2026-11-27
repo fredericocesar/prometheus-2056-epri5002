@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Construtor do Relatório Final | EPRI0004 Projetos Integrados II</title>
+<style>
+:root{--bg:#07131d;--panel:#0f2938;--panel2:#153a4b;--ink:#eefafa;--mut:#b6cbd0;--teal:#2dd4bf;--amber:#ffc857;--red:#ff7777;--green:#7ee2ad;--line:rgba(255,255,255,.13);--paper:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% 0%,rgba(45,212,191,.11),transparent 28%),#07131d;color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+button,input,select,textarea{font:inherit}.top{position:sticky;top:0;z-index:100;background:rgba(7,19,29,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.topin{max-width:1480px;margin:auto;padding:9px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{font-weight:950}.brand small{display:block;color:var(--mut);font-weight:500}.toolbar{display:flex;gap:7px;flex-wrap:wrap}.btn,button{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:10px;padding:8px 11px;cursor:pointer}.primary{background:var(--teal);color:#05221e;border-color:var(--teal);font-weight:900}.progressline{height:4px;background:#102838}.progressline div{height:4px;background:linear-gradient(90deg,var(--teal),var(--amber));width:0}
+.layout{max-width:1480px;margin:auto;display:grid;grid-template-columns:300px 1fr;gap:18px;padding:18px 16px 70px}.side{position:sticky;top:74px;align-self:start;max-height:calc(100vh - 90px);overflow:auto;border:1px solid var(--line);background:rgba(15,41,56,.9);border-radius:18px;padding:14px}.side h3{margin:0 0 8px}.scorebox{padding:12px;border-radius:12px;background:rgba(255,255,255,.05);margin-bottom:12px}.scorebox strong{font-size:1.9rem;color:var(--amber)}.side a{display:grid;grid-template-columns:32px 1fr 18px;gap:7px;text-decoration:none;color:#e8f4f5;padding:6px 7px;border-radius:8px;font-size:.82rem}.side a:hover{background:rgba(255,255,255,.05)}.side a span{color:var(--amber);font-weight:900}.side a em{font-style:normal;text-align:right}
+.hero{border:1px solid var(--line);border-radius:25px;padding:30px;background:linear-gradient(135deg,rgba(15,84,84,.72),rgba(15,41,56,.98));box-shadow:0 18px 45px rgba(0,0,0,.23)}.eyebrow{font-size:.75rem;text-transform:uppercase;letter-spacing:.13em;color:var(--teal);font-weight:900}.hero h1{font-size:clamp(2.2rem,4.6vw,4.5rem);line-height:.98;letter-spacing:-.04em;margin:7px 0 13px}.hero p{max-width:940px;color:#ddf7f4;font-size:1.07rem}.thesis{margin-top:15px;border-left:4px solid var(--amber);padding:14px 16px;background:rgba(255,200,87,.07);border-radius:0 12px 12px 0;font-weight:800}.mode-switch{display:flex;gap:7px;margin-top:16px;flex-wrap:wrap}.mode-switch button.active{background:var(--amber);color:#332607;border-color:var(--amber);font-weight:900}
+.two-score{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}.score-card{border:1px solid var(--line);border-radius:17px;padding:18px;background:var(--panel)}.score-card strong{font-size:2rem;color:var(--amber)}.score-card h3{margin:4px 0 4px}.score-card p{color:var(--mut);margin:0}
+.notice{margin:16px 0;padding:14px 16px;border-radius:12px;border-left:4px solid var(--amber);background:rgba(255,200,87,.07)}.notice.teal{border-left-color:var(--teal);background:rgba(45,212,191,.07)}
+.rubric{margin:18px 0;border:1px solid var(--line);border-radius:16px;overflow:auto;background:var(--panel)}table{width:100%;border-collapse:collapse;min-width:670px}th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:rgba(255,255,255,.06);color:#cffff7;font-size:.82rem}td span{color:var(--mut);font-size:.86rem}
+.chapter{margin-top:20px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(21,58,75,.96),rgba(15,41,56,.97));overflow:hidden}.chapter-head{display:grid;grid-template-columns:60px 1fr auto;gap:14px;align-items:start;padding:18px;border-bottom:1px solid var(--line)}.chapter-num{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:rgba(255,200,87,.1);border:1px solid rgba(255,200,87,.3);color:var(--amber);font-weight:950}.chapter h2{margin:2px 0 5px}.chapter-head p{margin:0;color:var(--mut)}.chapter-status{font-size:.75rem;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.06);color:var(--mut)}.chapter-status.done{color:#baffd4;background:rgba(126,226,173,.09);border:1px solid rgba(126,226,173,.25)}.chapter-status.partial{color:#ffe7a4;background:rgba(255,200,87,.09);border:1px solid rgba(255,200,87,.25)}.chapter-guidance{padding:10px 18px;background:rgba(97,220,227,.05);color:#e0f3f5;border-bottom:1px solid var(--line);font-size:.9rem}.chapter-body{padding:18px}
+label{display:block;font-weight:800;font-size:.9rem;margin:9px 0}input[type=text],input[type=date],input[type=url],input:not([type]),select,textarea{width:100%;margin-top:6px;padding:10px 11px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:#091d28;color:var(--ink);outline:none}textarea{min-height:130px;resize:vertical}.big{min-height:300px}.chapter-text{min-height:220px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.grid3 label{background:rgba(255,255,255,.035);padding:10px;border-radius:10px;font-weight:600}input[type=checkbox]{accent-color:var(--teal)}
+.dyn-table{overflow:auto;border:1px solid var(--line);border-radius:12px}.dyn-table textarea{min-width:120px;min-height:60px;margin:0}.add-row{margin:9px}.row-remove{padding:4px 7px;color:#ffd1d1;background:rgba(255,119,119,.08);border-color:rgba(255,119,119,.25)}
+.beta-card{padding:17px;border-radius:14px;background:linear-gradient(135deg,rgba(45,212,191,.12),rgba(255,200,87,.08));border:1px solid rgba(45,212,191,.3);margin-bottom:14px}.beta-card .badge{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--amber);color:#2b2108;font-size:.72rem;font-weight:950}.beta-card h3{font-size:1.55rem;margin:9px 0 4px}.beta-card p{margin:0;color:#d9eeee}
+.test-script{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.test-script div{padding:13px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.04)}.test-script b{display:block;color:var(--teal);margin-bottom:4px}.test-script span{color:var(--mut);font-size:.9rem}
+.image-zone{margin-top:15px;border:1px dashed rgba(255,255,255,.2);border-radius:13px;padding:12px}.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}.gallery-item{position:relative;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:#091d28}.gallery-item img{width:100%;height:180px;object-fit:contain;background:#fff}.gallery-item textarea{min-height:55px;margin:0;border:0;border-top:1px solid var(--line);border-radius:0}.gallery-item button{position:absolute;right:6px;top:6px;background:rgba(0,0,0,.65);padding:4px 7px}
+.review{display:none}body.reviewmode .review{display:block}.audit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.audit-item{display:flex;gap:9px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.035);font-weight:600}.audit-score{font-size:2.2rem;font-weight:950;color:var(--amber)}
+.report-cover{display:none}.report-toolbar{display:none}
+body.reportmode{background:#fff;color:#17303a}body.reportmode .top,body.reportmode .side,body.reportmode .hero,body.reportmode .edit-only,body.reportmode .chapter-guidance,body.reportmode .review,body.reportmode .two-score,body.reportmode .rubric,body.reportmode>.notice{display:none!important}body.reportmode .layout{display:block;max-width:900px;padding:0;margin:auto}body.reportmode .main{width:100%}body.reportmode .report-cover{display:block;min-height:92vh;padding:75px 48px;border-bottom:1px solid #d4dee1}body.reportmode .report-cover h1{font-size:2.5rem;line-height:1.05}body.reportmode .report-toolbar{display:flex;position:fixed;right:18px;bottom:18px;z-index:150;gap:8px}body.reportmode .chapter{background:#fff;color:#17303a;border:0;border-radius:0;box-shadow:none;margin:0}body.reportmode .chapter-head{grid-template-columns:46px 1fr;border-bottom:1px solid #d6e0e2;padding:26px 0 12px}body.reportmode .chapter-status{display:none}body.reportmode .chapter-head p{color:#5f7279}body.reportmode .chapter-body{padding:14px 0 26px}body.reportmode .chapter-num{width:40px;height:40px;border-radius:8px;background:#eef3f4;color:#164d59;border-color:#cad6d9}body.reportmode input,body.reportmode textarea,body.reportmode select{border:0!important;background:transparent!important;color:#17303a!important;padding:0!important;box-shadow:none!important;appearance:none;resize:none;overflow:visible}body.reportmode .full-label{font-size:0}body.reportmode .full-label textarea{font-size:11pt;line-height:1.5}body.reportmode th{background:#eef3f4;color:#17303a}body.reportmode td,body.reportmode th{border-color:#d8e1e3;color:#17303a}body.reportmode h4{color:#174b56}body.reportmode .beta-card{background:#f1f8f7;border-color:#badfd9;color:#17303a}body.reportmode .beta-card p{color:#405b63}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.side{position:static;max-height:none}.test-script{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.grid2,.grid3,.audit-grid,.two-score{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}.chapter-head{grid-template-columns:50px 1fr}.chapter-status{grid-column:2}.topin{align-items:flex-start;flex-direction:column}}@media print{.report-toolbar{display:none!important}@page{size:A4;margin:18mm 16mm}body.reportmode .report-cover{min-height:245mm;page-break-after:always;padding:42mm 10mm 10mm}body.reportmode .chapter-head{page-break-after:avoid}.gallery-item{break-inside:avoid}}
+</style>
+</head>
+<body class="editmode">
+<header class="top"><div class="topin"><div class="brand">EPRI0004 · Projetos Integrados II<small>Construtor do Relatório Final · Assistente Virtual Acadêmico · 2026.2</small></div><div class="toolbar"><span id="saveState" style="color:var(--mut);font-size:.78rem">Salvo localmente</span><button id="saveJson">Salvar projeto (.json)</button><label class="btn">Carregar projeto<input id="loadJson" type="file" accept=".json" hidden></label><button id="reviewBtn">Revisar</button><button id="reportBtn" class="primary">Gerar relatório</button></div></div><div class="progressline"><div id="topProgress"></div></div></header>
+
+<div class="layout">
+<aside class="side"><h3>Progresso</h3><div class="scorebox"><strong id="progressPct">0%</strong><div>seções preenchidas</div></div><a href="#sec-1" data-toc="1"><span>01</span>Identificação da equipe e da entrega<em id="tocstate-1">○</em></a>
+<a href="#sec-2" data-toc="2"><span>02</span>Resumo executivo<em id="tocstate-2">○</em></a>
+<a href="#sec-3" data-toc="3"><span>03</span>Problema, escopo e objetivos finais<em id="tocstate-3">○</em></a>
+<a href="#sec-4" data-toc="4"><span>04</span>Da N1 à N2: o que foi corrigido e amadurecido<em id="tocstate-4">○</em></a>
+<a href="#sec-5" data-toc="5"><span>05</span>Arquitetura final da solução<em id="tocstate-5">○</em></a>
+<a href="#sec-6" data-toc="6"><span>06</span>Base documental e governança das fontes<em id="tocstate-6">○</em></a>
+<a href="#sec-7" data-toc="7"><span>07</span>Instruções de sistema e regras de comportamento<em id="tocstate-7">○</em></a>
+<a href="#sec-8" data-toc="8"><span>08</span>Versão beta pública: hospedagem e acesso<em id="tocstate-8">○</em></a>
+<a href="#sec-9" data-toc="9"><span>09</span>Protocolo de testes e validação<em id="tocstate-9">○</em></a>
+<a href="#sec-10" data-toc="10"><span>10</span>Resultados dos testes<em id="tocstate-10">○</em></a>
+<a href="#sec-11" data-toc="11"><span>11</span>Erros, incidentes e correções<em id="tocstate-11">○</em></a>
+<a href="#sec-12" data-toc="12"><span>12</span>Experiência do usuário e acessibilidade<em id="tocstate-12">○</em></a>
+<a href="#sec-13" data-toc="13"><span>13</span>Difusão e lançamento<em id="tocstate-13">○</em></a>
+<a href="#sec-14" data-toc="14"><span>14</span>Kit de comunicação<em id="tocstate-14">○</em></a>
+<a href="#sec-15" data-toc="15"><span>15</span>Plano de implantação, operação e manutenção<em id="tocstate-15">○</em></a>
+<a href="#sec-16" data-toc="16"><span>16</span>Riscos, limites, privacidade e responsabilidade<em id="tocstate-16">○</em></a>
+<a href="#sec-17" data-toc="17"><span>17</span>Contribuição da equipe<em id="tocstate-17">○</em></a>
+<a href="#sec-18" data-toc="18"><span>18</span>Conclusão e prontidão para uso comunitário<em id="tocstate-18">○</em></a>
+<a href="#sec-19" data-toc="19"><span>19</span>Referências e anexos<em id="tocstate-19">○</em></a></aside>
+<main class="main">
+<section class="hero">
+<div class="eyebrow">Entrega final · versão beta pública + relatório técnico</div>
+<h1>Da prova de conceito ao uso pela comunidade</h1>
+<p>Este documento deve registrar a solução final, demonstrar sua confiabilidade e provar que a IA foi disponibilizada em uma versão beta acessível à comunidade acadêmica.</p>
+<div class="thesis">O desafio não termina quando a IA “funciona”. A entrega termina quando outra pessoa consegue encontrá-la, acessá-la, usá-la, compreender seus limites e confiar na origem das informações.</div>
+<div class="mode-switch"><button class="active" data-mode="edit">1 · Preencher</button><button data-mode="review">2 · Revisar</button><button data-mode="report">3 · Relatório</button></div>
+</section>
+
+<div class="two-score">
+<div class="score-card"><strong>50 pts</strong><h3>Relatório Técnico Final</h3><p>Avaliação pelo professor: qualidade técnica, evidências, validação, implantação, manutenção e difusão.</p></div>
+<div class="score-card"><strong>50 pts</strong><h3>Solução beta</h3><p>Avaliação por estudantes que usarão a IA em situações reais de consulta acadêmica.</p></div>
+</div>
+
+<div class="notice teal"><b>Alteração da lógica avaliativa:</b> o manual original previa 30 pontos para protótipo, 30 para TAU, 20 para vídeo e 20 para kit de divulgação. Nesta entrega final, esses elementos continuam obrigatórios como evidências, mas a nota será reorganizada em <b>50 pontos para o relatório</b> e <b>50 pontos para a solução beta testada pelos usuários</b>.</div>
+
+<div class="rubric">
+<table><thead><tr><th>Relatório — avaliação do professor</th><th>Pontos</th><th>Pergunta orientadora</th></tr></thead><tbody>
+<tr><td><b>Completude e rastreabilidade do projeto</b><br><span>O relatório reconstrói a passagem da N1 à versão beta e apresenta evidências verificáveis das decisões, correções e entregas.</span></td><td>10</td><td>É possível reconstruir o caminho da N1 até a beta e verificar as evidências?</td></tr>
+<tr><td><b>Qualidade técnica e governança da IA</b><br><span>A arquitetura, a base documental, as instruções de sistema e os mecanismos de restrição e citação são tecnicamente coerentes.</span></td><td>10</td><td>Base documental, regras, arquitetura e controles são tecnicamente defensáveis?</td></tr>
+<tr><td><b>Validação e análise dos resultados</b><br><span>Os testes são documentados, as métricas são interpretadas e falhas reais aparecem acompanhadas de correções ou decisões.</span></td><td>10</td><td>Os testes são rigorosos, os resultados são interpretados e as falhas geram correções?</td></tr>
+<tr><td><b>Implantação, manutenção e responsabilidade</b><br><span>A beta está acessível à comunidade e existe um plano plausível de atualização das fontes, continuidade, gestão de incidentes e supervisão humana.</span></td><td>10</td><td>A beta está acessível e existe plano de atualização, continuidade, risco e supervisão?</td></tr>
+<tr><td><b>Difusão e qualidade do relatório</b><br><span>O documento é claro e profissional, e a estratégia de comunicação favorece adoção sem confundir a IA com uma instância decisória da universidade.</span></td><td>10</td><td>A comunicação é profissional, coerente e suficiente para adoção pela comunidade?</td></tr>
+</tbody></table>
+</div>
+<div class="rubric">
+<table><thead><tr><th>Solução — avaliação dos estudantes</th><th>Pontos</th><th>Pergunta orientadora</th></tr></thead><tbody>
+<tr><td><b>Acesso e disponibilidade</b><br><span>O estudante consegue abrir a solução, iniciar a consulta e utilizá-la sem depender de autorização ou intervenção da equipe.</span></td><td>10</td><td>Consegui abrir e iniciar o uso sem depender de intervenção da equipe.</td></tr>
+<tr><td><b>Usabilidade e clareza</b><br><span>A interface, as instruções e a linguagem tornam evidente como perguntar, navegar e interpretar a resposta.</span></td><td>10</td><td>Foi fácil entender como perguntar e interpretar a resposta.</td></tr>
+<tr><td><b>Utilidade da resposta</b><br><span>A resposta é pertinente à dúvida acadêmica, ajuda o usuário a decidir o próximo passo e evita conteúdo irrelevante.</span></td><td>10</td><td>A solução ajudou a resolver uma dúvida acadêmica real.</td></tr>
+<tr><td><b>Confiança e rastreabilidade</b><br><span>A solução identifica claramente a fonte normativa usada e permite ao estudante compreender a origem e os limites da orientação.</span></td><td>10</td><td>A resposta mostrou claramente a fonte/regra utilizada e seus limites.</td></tr>
+<tr><td><b>Robustez e comportamento seguro</b><br><span>Quando a resposta não está sustentada pela base, a IA reconhece o limite, evita inventar e encaminha corretamente para atendimento humano.</span></td><td>10</td><td>Em dúvidas ambíguas ou fora da base, a IA evitou inventar e orientou o próximo passo.</td></tr>
+</tbody></table>
+</div>
+
+<div class="notice"><b>Instrumento de teste comunitário.</b> Cada avaliador deverá realizar ao menos três interações: uma pergunta factual normativa, uma pergunta de procedimento e uma dúvida ambígua/fora da base. Depois atribuirá 0–10 a cada um dos cinco critérios da solução. A nota dos 50 pontos será calculada pela média das avaliações.</div>
+
+<section class="review" id="reviewPanel">
+  <section class="chapter">
+    <div class="chapter-head"><div class="chapter-num">✓</div><div><h2>Auditoria antes da entrega</h2><p>Marque somente depois de conferir.</p></div></div>
+    <div class="chapter-body"><div class="audit-score"><span id="auditPct">0%</span> da auditoria concluída</div><div class="audit-grid"><label class="audit-item"><input type="checkbox" data-audit="a1"><span>A URL da beta está preenchida e foi testada por alguém fora da equipe.</span></label><label class="audit-item"><input type="checkbox" data-audit="a2"><span>A solução pode ser acessada sem autorização manual da equipe.</span></label><label class="audit-item"><input type="checkbox" data-audit="a3"><span>A base documental utilizada está identificada e com vigência conferida.</span></label><label class="audit-item"><input type="checkbox" data-audit="a4"><span>A IA cita fontes normativas nas respostas.</span></label><label class="audit-item"><input type="checkbox" data-audit="a5"><span>Existe protocolo explícito para casos omissos / dúvida fora da base.</span></label><label class="audit-item"><input type="checkbox" data-audit="a6"><span>A FAQ da N1 foi revisada e validada.</span></label><label class="audit-item"><input type="checkbox" data-audit="a7"><span>Os testes registram acurácia, citações incorretas/alucinações e usabilidade.</span></label><label class="audit-item"><input type="checkbox" data-audit="a8"><span>Erros encontrados nos testes aparecem no relatório com correção e status.</span></label><label class="audit-item"><input type="checkbox" data-audit="a9"><span>O relatório contém evidência do vídeo, e-mail, três cards e cartaz com QR Code.</span></label><label class="audit-item"><input type="checkbox" data-audit="a10"><span>Existe plano de manutenção e atualização da solução.</span></label><label class="audit-item"><input type="checkbox" data-audit="a11"><span>Riscos, limites e necessidade de supervisão humana estão explícitos.</span></label><label class="audit-item"><input type="checkbox" data-audit="a12"><span>A conclusão julga a prontidão real da beta para uso comunitário.</span></label></div><div class="notice" id="criticalOutput">Preencha o relatório para iniciar a auditoria automática.</div></div>
+  </section>
+</section>
+
+<section class="report-cover">
+  <div style="color:#18786e;font-weight:900;letter-spacing:.12em;text-transform:uppercase">UNIFEI · Campus Itabira · EPRI0004 · 2026.2</div>
+  <h1>Relatório Técnico Final<br>Assistente Virtual Acadêmico</h1>
+  <div style="margin-top:38px;display:grid;gap:8px">
+    <div><b>Projeto:</b> <span data-report="s1_project">—</span></div>
+    <div><b>Versão beta:</b> <span data-report="s1_version">—</span></div>
+    <div><b>Plataforma:</b> <span data-report="s1_platform">—</span></div>
+    <div><b>Data:</b> <span data-report="s1_date">—</span></div>
+    <div><b>URL pública:</b> <span data-report="s8_url">—</span></div>
+  </div>
+  <div style="margin-top:65px;font-size:1.18rem"><b>Desafio final</b><br>Entregar uma IA confiável, rastreável e acessível à comunidade acadêmica em versão beta utilizável.</div>
+</section>
+
+
+<section class="chapter" id="sec-1" data-section="1">
+  <div class="chapter-head"><div class="chapter-num">01</div><div><h2>Identificação da equipe e da entrega</h2><p>Identifique os três integrantes, a versão beta entregue, a plataforma de hospedagem e a data da entrega.</p></div><div class="chapter-status" id="status-1">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="grid2">
+  <label>Nome do projeto<input data-key="s1_project" placeholder="Assistente Virtual Acadêmico..."></label>
+  <label>Versão beta<input data-key="s1_version" placeholder="Ex.: Beta 1.0"></label>
+  <label>Data da entrega<input data-key="s1_date" type="date"></label>
+  <label>Plataforma principal<input data-key="s1_platform" placeholder="Ex.: NotebookLM, web app..."></label>
+</div>
+<h4>Integrantes</h4>
+<div class="dyn-table" data-table="members"><table><thead><tr><th>Integrante</th><th>Matrícula</th><th>Responsabilidade predominante</th><th class="edit-only"></th></tr></thead><tbody></tbody></table><button class="add-row edit-only" data-add="members">+ Adicionar integrante</button></div>
+</div>
+</section>
+
+
+<section class="chapter" id="sec-2" data-section="2">
+  <div class="chapter-head"><div class="chapter-num">02</div><div><h2>Resumo executivo</h2><p>Sintetize problema, solução, estado da versão beta, principais resultados de teste, limitações e situação de implantação.</p></div><div class="chapter-status" id="status-2">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body"><label class="full-label">Conteúdo da seção<textarea class="chapter-text" data-key="s2_text" placeholder="Escreva por último. Em até uma página, permita que o leitor compreenda a solução, a versão beta, a validação e a situação de implantação."></textarea></label></div>
+</section>
+
+
+<section class="chapter" id="sec-3" data-section="3">
+  <div class="chapter-head"><div class="chapter-num">03</div><div><h2>Problema, escopo e objetivos finais</h2><p>Retome o problema de assimetria de informação e sobrecarga de atendimento, delimite o escopo final e registre os objetivos efetivamente alcançados.</p></div><div class="chapter-status" id="status-3">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body"><label class="full-label">Conteúdo da seção<textarea class="chapter-text" data-key="s3_text" placeholder="Diferencie problema, escopo, objetivo geral e objetivos específicos. Mostre o que mudou em relação à N1."></textarea></label><div class="image-zone"><h4>Evidências visuais desta seção</h4><p class="hint">Opcional: gráficos, capturas de tela, fluxos, esquemas ou registros.</p><input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="3"><div class="gallery" id="gallery-3"></div></div></div>
+</section>
+
+
+<section class="chapter" id="sec-4" data-section="4">
+  <div class="chapter-head"><div class="chapter-num">04</div><div><h2>Da N1 à N2: o que foi corrigido e amadurecido</h2><p>Mostre como as lacunas da primeira entrega foram tratadas: validação da FAQ, entrevistas, cobertura normativa, datas, base documental e demais ajustes.</p></div><div class="chapter-status" id="status-4">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="dyn-table" data-table="maturation"><table><thead><tr><th>Lacuna da N1</th><th>Ação realizada</th><th>Evidência</th><th>Resultado</th><th class="edit-only"></th></tr></thead><tbody></tbody></table><button class="add-row edit-only" data-add="maturation">+ Adicionar melhoria</button></div>
+</div>
+</section>
+
+
+<section class="chapter" id="sec-5" data-section="5">
+  <div class="chapter-head"><div class="chapter-num">05</div><div><h2>Arquitetura final da solução</h2><p>Explique a solução de IA: plataforma, fontes, fluxo de consulta, mecanismos de recuperação, restrição de escopo e comportamento esperado.</p></div><div class="chapter-status" id="status-5">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body"><label class="full-label">Conteúdo da seção<textarea class="chapter-text" data-key="s5_text" placeholder="Explique a arquitetura de maneira suficientemente clara para que outra pessoa compreenda como a IA chega de uma pergunta a uma resposta e quais controles reduzem erro."></textarea></label><div class="image-zone"><h4>Evidências visuais desta seção</h4><p class="hint">Opcional: gráficos, capturas de tela, fluxos, esquemas ou registros.</p><input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="5"><div class="gallery" id="gallery-5"></div></div></div>
+</section>
+
+
+<section class="chapter" id="sec-6" data-section="6">
+  <div class="chapter-head"><div class="chapter-num">06</div><div><h2>Base documental e governança das fontes</h2><p>Demonstre quais documentos oficiais estão ativos na base, como vigência e aplicabilidade foram conferidas e como atualizações futuras serão tratadas.</p></div><div class="chapter-status" id="status-6">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="dyn-table" data-table="sources"><table><thead><tr><th>Documento</th><th>Versão / ato</th><th>Vigência conferida?</th><th>Temas cobertos</th><th>Link oficial</th><th class="edit-only"></th></tr></thead><tbody></tbody></table><button class="add-row edit-only" data-add="sources">+ Adicionar fonte</button></div>
+<label>Política de atualização da base<textarea data-key="s6_update" placeholder="Quem verifica novas normas? Com qual frequência? Como documentos revogados são removidos?"></textarea></label>
+<div class="image-zone"><h4>Evidências visuais desta seção</h4><p class="hint">Opcional: gráficos, capturas de tela, fluxos, esquemas ou registros.</p><input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="6"><div class="gallery" id="gallery-6"></div></div></div>
+</section>
+
+
+<section class="chapter" id="sec-7" data-section="7">
+  <div class="chapter-head"><div class="chapter-num">07</div><div><h2>Instruções de sistema e regras de comportamento</h2><p>Apresente a versão final das instruções da IA, incluindo fidelidade às fontes, citação normativa e protocolo para casos omissos.</p></div><div class="chapter-status" id="status-7">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<label>Instruções de sistema — versão final<textarea class="big" data-key="s7_prompt" placeholder="Cole aqui a versão final das instruções de sistema utilizadas pela IA."></textarea></label>
+<div class="grid3">
+  <label><input type="checkbox" data-check="sys1"> Restringe respostas às fontes oficiais</label>
+  <label><input type="checkbox" data-check="sys2"> Exige citação normativa</label>
+  <label><input type="checkbox" data-check="sys3"> Possui protocolo para casos omissos</label>
+  <label><input type="checkbox" data-check="sys4"> Encaminha ao setor responsável</label>
+  <label><input type="checkbox" data-check="sys5"> Gera rascunho de e-mail quando necessário</label>
+  <label><input type="checkbox" data-check="sys6"> Evita se apresentar como autoridade decisória</label>
+</div>
+</div>
+</section>
+
+
+<section class="chapter" id="sec-8" data-section="8">
+  <div class="chapter-head"><div class="chapter-num">08</div><div><h2>Versão beta pública: hospedagem e acesso</h2><p>Registre a solução que será efetivamente utilizada pela comunidade: URL, QR Code, plataforma, requisitos de acesso, versão, disponibilidade e instruções.</p></div><div class="chapter-status" id="status-8">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="beta-card">
+  <div class="badge">ENTREGA CENTRAL</div>
+  <h3>Versão beta acessível à comunidade</h3>
+  <p>A solução não pode existir apenas como demonstração. Ela precisa estar hospedada, possuir endereço estável e poder ser aberta por terceiros no período de avaliação.</p>
+</div>
+<div class="grid2">
+  <label>URL pública da solução<input data-key="s8_url" type="url" placeholder="https://..."></label>
+  <label>URL alternativa / backup<input data-key="s8_backup" type="url" placeholder="Opcional, mas recomendado"></label>
+  <label>Plataforma / hospedagem<input data-key="s8_host" placeholder="Onde a solução está hospedada?"></label>
+  <label>Data e hora da última verificação<input data-key="s8_checked" placeholder="Ex.: 09/12/2026 18:40"></label>
+  <label>Requisito de acesso<input data-key="s8_access" placeholder="Sem login / conta Google / conta institucional..."></label>
+  <label>Contato técnico da equipe<input data-key="s8_contact" placeholder="Canal para comunicar falha de acesso"></label>
+</div>
+<label>Instruções de acesso<textarea data-key="s8_instructions" placeholder="Explique em poucas etapas como qualquer estudante chega à IA e começa a usá-la."></textarea></label>
+<label>Limitações conhecidas da beta<textarea data-key="s8_limits"></textarea></label>
+<div class="grid3">
+  <label><input type="checkbox" data-check="beta1"> Link testado em dispositivo diferente</label>
+  <label><input type="checkbox" data-check="beta2"> Link testado por pessoa fora da equipe</label>
+  <label><input type="checkbox" data-check="beta3"> QR Code leva ao endereço correto</label>
+  <label><input type="checkbox" data-check="beta4"> Acesso não exige permissão manual da equipe</label>
+  <label><input type="checkbox" data-check="beta5"> Instruções de uso estão visíveis</label>
+  <label><input type="checkbox" data-check="beta6"> Há aviso de escopo e limites</label>
+</div>
+<h4>Evidência de acesso</h4>
+<input class="edit-only" type="file" id="betaImageInput" accept="image/*" multiple>
+<div class="gallery" id="gallery-beta"></div>
+</div>
+</section>
+
+
+<section class="chapter" id="sec-9" data-section="9">
+  <div class="chapter-head"><div class="chapter-num">09</div><div><h2>Protocolo de testes e validação</h2><p>Descreva os testes realizados pela equipe e como serão executados os testes pelo professor e pelos estudantes.</p></div><div class="chapter-status" id="status-9">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="notice teal"><b>Duas camadas de validação:</b> a equipe documenta seu próprio TAU e, adicionalmente, a solução será testada pelo professor com apoio de estudantes de outras disciplinas. A avaliação comunitária gera 50 pontos da N2.</div>
+<h4>TAU / validação realizada pela equipe</h4>
+<div class="dyn-table" data-table="testers"><table><thead><tr><th>Perfil</th><th>Nº de participantes</th><th>Nº de perguntas/tarefas</th><th>Objetivo</th><th>Evidência</th><th class="edit-only"></th></tr></thead><tbody></tbody></table><button class="add-row edit-only" data-add="testers">+ Adicionar grupo de teste</button></div>
+<h4>Roteiro para avaliação pelos estudantes</h4>
+<div class="test-script">
+  <div><b>Interação A — fato normativo</b><span>Faça uma pergunta cuja resposta dependa de uma regra ou prazo institucional.</span></div>
+  <div><b>Interação B — procedimento</b><span>Faça uma pergunta sobre o que o estudante deve fazer e qual setor é responsável.</span></div>
+  <div><b>Interação C — dúvida ambígua ou fora da base</b><span>Teste se a IA reconhece limites, evita inventar e encaminha corretamente.</span></div>
+</div>
+</div>
+</section>
+
+
+<section class="chapter" id="sec-10" data-section="10">
+  <div class="chapter-head"><div class="chapter-num">10</div><div><h2>Resultados dos testes</h2><p>Apresente resultados quantitativos e qualitativos: acurácia, citação correta, alucinações, usabilidade, falhas, tempo de resposta e comentários dos usuários.</p></div><div class="chapter-status" id="status-10">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="dyn-table" data-table="metrics"><table><thead><tr><th>Métrica</th><th>Definição</th><th>Resultado</th><th>Meta</th><th>Interpretação</th><th class="edit-only"></th></tr></thead><tbody></tbody></table><button class="add-row edit-only" data-add="metrics">+ Adicionar métrica</button></div>
+<label>Síntese dos resultados<textarea data-key="s10_summary"></textarea></label>
+<div class="image-zone"><h4>Evidências visuais desta seção</h4><p class="hint">Opcional: gráficos, capturas de tela, fluxos, esquemas ou registros.</p><input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="10"><div class="gallery" id="gallery-10"></div></div></div>
+</section>
+
+
+<section class="chapter" id="sec-11" data-section="11">
+  <div class="chapter-head"><div class="chapter-num">11</div><div><h2>Erros, incidentes e correções</h2><p>Documente falhas encontradas, respostas inadequadas, fontes problemáticas, correções realizadas e decisões tomadas após os testes.</p></div><div class="chapter-status" id="status-11">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="dyn-table" data-table="incidents"><table><thead><tr><th>Erro / incidente</th><th>Como foi detectado</th><th>Causa provável</th><th>Correção</th><th>Status</th><th class="edit-only"></th></tr></thead><tbody></tbody></table><button class="add-row edit-only" data-add="incidents">+ Adicionar incidente</button></div>
+</div>
+</section>
+
+
+<section class="chapter" id="sec-12" data-section="12">
+  <div class="chapter-head"><div class="chapter-num">12</div><div><h2>Experiência do usuário e acessibilidade</h2><p>Analise clareza, facilidade de acesso, linguagem, navegabilidade, barreiras de uso e adequação aos diferentes perfis de estudantes.</p></div><div class="chapter-status" id="status-12">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body"><label class="full-label">Conteúdo da seção<textarea class="chapter-text" data-key="s12_text" placeholder="Analise a experiência real de uso. Não use apenas opiniões da equipe: apoie-se nos testes e comentários de usuários."></textarea></label><div class="image-zone"><h4>Evidências visuais desta seção</h4><p class="hint">Opcional: gráficos, capturas de tela, fluxos, esquemas ou registros.</p><input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="12"><div class="gallery" id="gallery-12"></div></div></div>
+</section>
+
+
+<section class="chapter" id="sec-13" data-section="13">
+  <div class="chapter-head"><div class="chapter-num">13</div><div><h2>Difusão e lançamento</h2><p>Documente como a solução será apresentada à comunidade e como o acesso será disseminado de forma institucional.</p></div><div class="chapter-status" id="status-13">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="dyn-table" data-table="diffusion"><table><thead><tr><th>Canal</th><th>Público</th><th>Mensagem</th><th>Link / evidência</th><th>Status</th><th class="edit-only"></th></tr></thead><tbody></tbody></table><button class="add-row edit-only" data-add="diffusion">+ Adicionar ação de difusão</button></div>
+<div class="image-zone"><h4>Evidências visuais desta seção</h4><p class="hint">Opcional: gráficos, capturas de tela, fluxos, esquemas ou registros.</p><input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="13"><div class="gallery" id="gallery-13"></div></div></div>
+</section>
+
+
+<section class="chapter" id="sec-14" data-section="14">
+  <div class="chapter-head"><div class="chapter-num">14</div><div><h2>Kit de comunicação</h2><p>Inclua evidências do vídeo institucional, e-mail de lançamento, três peças para redes sociais e cartaz com QR Code.</p></div><div class="chapter-status" id="status-14">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="grid2">
+  <label>Vídeo institucional (até 1 min)<input data-key="s14_video" type="url" placeholder="Link"></label>
+  <label>E-mail de lançamento<input data-key="s14_email" placeholder="Link para o arquivo ou anexo"></label>
+  <label>Cards para redes sociais<input data-key="s14_cards" placeholder="Link para pasta / arquivo"></label>
+  <label>Cartaz com QR Code<input data-key="s14_poster" placeholder="Link para PDF"></label>
+</div>
+<label>Estratégia de mensagem<textarea data-key="s14_message" placeholder="Que promessa de valor é feita? Como o material evita sugerir que a IA substitui decisões institucionais?"></textarea></label>
+<div class="image-zone"><h4>Prévia das peças</h4><input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="14"><div class="gallery" id="gallery-14"></div></div>
+</div>
+</section>
+
+
+<section class="chapter" id="sec-15" data-section="15">
+  <div class="chapter-head"><div class="chapter-num">15</div><div><h2>Plano de implantação, operação e manutenção</h2><p>Explique quem mantém a solução, como fontes serão atualizadas, como incidentes serão tratados e como a beta poderá evoluir para uso continuado.</p></div><div class="chapter-status" id="status-15">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="dyn-table" data-table="ops"><table><thead><tr><th>Responsabilidade</th><th>Responsável futuro</th><th>Frequência / gatilho</th><th>Procedimento</th><th class="edit-only"></th></tr></thead><tbody></tbody></table><button class="add-row edit-only" data-add="ops">+ Adicionar rotina</button></div>
+<label>Plano de continuidade<textarea data-key="s15_continuity" placeholder="O que precisa acontecer para a solução não morrer após a disciplina?"></textarea></label>
+<div class="image-zone"><h4>Evidências visuais desta seção</h4><p class="hint">Opcional: gráficos, capturas de tela, fluxos, esquemas ou registros.</p><input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="15"><div class="gallery" id="gallery-15"></div></div></div>
+</section>
+
+
+<section class="chapter" id="sec-16" data-section="16">
+  <div class="chapter-head"><div class="chapter-num">16</div><div><h2>Riscos, limites, privacidade e responsabilidade</h2><p>Reconheça limites técnicos e institucionais, riscos de informação desatualizada, privacidade, dependência da plataforma e necessidade de supervisão humana.</p></div><div class="chapter-status" id="status-16">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body"><label class="full-label">Conteúdo da seção<textarea class="chapter-text" data-key="s16_text" placeholder="Reconheça riscos reais: informação desatualizada, falsa confiança, erro de citação, dependência da plataforma, indisponibilidade, privacidade e limites institucionais."></textarea></label><div class="image-zone"><h4>Evidências visuais desta seção</h4><p class="hint">Opcional: gráficos, capturas de tela, fluxos, esquemas ou registros.</p><input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="16"><div class="gallery" id="gallery-16"></div></div></div>
+</section>
+
+
+<section class="chapter" id="sec-17" data-section="17">
+  <div class="chapter-head"><div class="chapter-num">17</div><div><h2>Contribuição da equipe</h2><p>Registre responsabilidades predominantes e entregas efetivamente produzidas pelos três integrantes, sem fragmentar o domínio do projeto.</p></div><div class="chapter-status" id="status-17">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="dyn-table" data-table="contrib"><table><thead><tr><th>Integrante</th><th>Principais entregas</th><th>Decisões apoiadas</th><th>Aprendizados</th><th class="edit-only"></th></tr></thead><tbody></tbody></table><button class="add-row edit-only" data-add="contrib">+ Adicionar integrante</button></div>
+</div>
+</section>
+
+
+<section class="chapter" id="sec-18" data-section="18">
+  <div class="chapter-head"><div class="chapter-num">18</div><div><h2>Conclusão e prontidão para uso comunitário</h2><p>Responda se a solução está suficientemente madura para ser utilizada pela comunidade acadêmica, em que condições e com quais limites.</p></div><div class="chapter-status" id="status-18">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body"><label class="full-label">Conteúdo da seção<textarea class="chapter-text" data-key="s18_text" placeholder="Conclua com um julgamento de prontidão. Diga o que já pode ser usado, o que ainda não pode e quais condições precisam ser mantidas."></textarea></label><div class="image-zone"><h4>Evidências visuais desta seção</h4><p class="hint">Opcional: gráficos, capturas de tela, fluxos, esquemas ou registros.</p><input class="edit-only section-image-input" type="file" accept="image/*" multiple data-section="18"><div class="gallery" id="gallery-18"></div></div></div>
+</section>
+
+
+<section class="chapter" id="sec-19" data-section="19">
+  <div class="chapter-head"><div class="chapter-num">19</div><div><h2>Referências e anexos</h2><p>Liste fontes e anexos: base documental, FAQ validada, protocolo de entrevistas, resultados brutos, formulários, peças de divulgação e outros artefatos.</p></div><div class="chapter-status" id="status-19">Pendente</div></div>
+  <div class="chapter-guidance edit-only"><b>Orientação:</b> registre aquilo que foi efetivamente desenvolvido. Não substitua evidência por promessa de trabalho futuro.</div>
+  <div class="chapter-body">
+<div class="dyn-table" data-table="refs"><table><thead><tr><th>Referência / anexo</th><th>Tipo</th><th>Link</th><th>Função no relatório</th><th class="edit-only"></th></tr></thead><tbody></tbody></table><button class="add-row edit-only" data-add="refs">+ Adicionar item</button></div>
+</div>
+</section>
+
+
+<div class="notice edit-only"><b>Entrega final:</b> revise o conteúdo, abra o modo <b>Relatório</b> e salve em PDF. O PDF deve ser entregue junto ao link público da beta e aos materiais de difusão.</div>
+</main>
+</div>
+
+<div class="report-toolbar"><button id="backEdit">Voltar a editar</button><button id="printBtn" class="primary">Imprimir / Salvar PDF</button></div>
+
+<script>
+const TABLE_SCHEMAS={"members": ["Integrante", "Matrícula", "Responsabilidade predominante"], "maturation": ["Lacuna da N1", "Ação realizada", "Evidência", "Resultado"], "sources": ["Documento", "Versão / ato", "Vigência conferida?", "Temas cobertos", "Link oficial"], "testers": ["Perfil", "Nº de participantes", "Nº de perguntas/tarefas", "Objetivo", "Evidência"], "metrics": ["Métrica", "Definição", "Resultado", "Meta", "Interpretação"], "incidents": ["Erro / incidente", "Como foi detectado", "Causa provável", "Correção", "Status"], "diffusion": ["Canal", "Público", "Mensagem", "Link / evidência", "Status"], "ops": ["Responsabilidade", "Responsável futuro", "Frequência / gatilho", "Procedimento"], "contrib": ["Integrante", "Principais entregas", "Decisões apoiadas", "Aprendizados"], "refs": ["Referência / anexo", "Tipo", "Link", "Função no relatório"]};
+const STORAGE_KEY='epri0004_relatorio_final_2026_2_v1';
+let imageState={}, saveTimer=null;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+function blankRow(name){
+ const tr=document.createElement('tr');
+ TABLE_SCHEMAS[name].forEach((c,i)=>{const td=document.createElement('td');const ta=document.createElement('textarea');ta.placeholder=c;ta.dataset.table=name;ta.dataset.col=i;ta.oninput=scheduleSave;td.appendChild(ta);tr.appendChild(td);});
+ const td=document.createElement('td');td.className='edit-only';const b=document.createElement('button');b.className='row-remove';b.textContent='×';b.onclick=()=>{tr.remove();scheduleSave();updateProgress();};td.appendChild(b);tr.appendChild(td);return tr;
+}
+function ensureRows(){$$('[data-table]').forEach(w=>{if(!w.querySelector('tbody').children.length)w.querySelector('tbody').appendChild(blankRow(w.dataset.table));});}
+$$('[data-add]').forEach(b=>b.onclick=()=>{document.querySelector(`[data-table="${b.dataset.add}"] tbody`).appendChild(blankRow(b.dataset.add));scheduleSave();});
+
+function collectTables(){
+ const out={};$$('[data-table]').forEach(w=>{out[w.dataset.table]=[...w.querySelectorAll('tbody tr')].map(tr=>[...tr.querySelectorAll('textarea,input')].map(e=>e.value));});return out;
+}
+function collectState(includeImages=true){
+ const fields={};$$('[data-key]').forEach(e=>fields[e.dataset.key]=e.value);
+ const checks={};$$('[data-check]').forEach(e=>checks[e.dataset.check]=e.checked);
+ const audit={};$$('[data-audit]').forEach(e=>audit[e.dataset.audit]=e.checked);
+ return {version:1,savedAt:new Date().toISOString(),fields,checks,audit,tables:collectTables(),images:includeImages?imageState:{}};
+}
+function applyState(s){
+ Object.entries(s.fields||{}).forEach(([k,v])=>{const e=document.querySelector(`[data-key="${CSS.escape(k)}"]`);if(e)e.value=v||'';});
+ Object.entries(s.checks||{}).forEach(([k,v])=>{const e=document.querySelector(`[data-check="${k}"]`);if(e)e.checked=!!v;});
+ Object.entries(s.audit||{}).forEach(([k,v])=>{const e=document.querySelector(`[data-audit="${k}"]`);if(e)e.checked=!!v;});
+ Object.entries(s.tables||{}).forEach(([name,rows])=>{const tb=document.querySelector(`[data-table="${name}"] tbody`);if(!tb)return;tb.innerHTML='';(rows.length?rows:[[]]).forEach(vals=>{const tr=blankRow(name);[...tr.querySelectorAll('textarea,input')].forEach((e,i)=>e.value=vals[i]||'');tb.appendChild(tr);});});
+ imageState=s.images||{};renderAllGalleries();updateProgress();updateAudit();updateReportSpans();
+}
+function saveLocal(){
+ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(collectState(true)));$('#saveState').textContent='Salvo localmente';}
+ catch(e){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(collectState(false)));$('#saveState').textContent='Texto salvo; salve JSON para preservar imagens';}catch(e2){$('#saveState').textContent='Falha ao salvar';}}
+}
+function scheduleSave(){$('#saveState').textContent='Salvando...';clearTimeout(saveTimer);saveTimer=setTimeout(()=>{saveLocal();updateProgress();updateReportSpans();},450);}
+$$('[data-key]').forEach(e=>e.addEventListener('input',scheduleSave));$$('[data-check],[data-audit]').forEach(e=>e.addEventListener('change',()=>{scheduleSave();updateAudit();}));
+
+function sectionHasContent(n){
+ const sec=$(`#sec-${n}`);let score=0,total=0;
+ sec.querySelectorAll('textarea[data-key],input[data-key],select[data-key]').forEach(e=>{total++;if((e.value||'').trim())score++;});
+ sec.querySelectorAll('tbody textarea').forEach(e=>{total++;if((e.value||'').trim())score++;});
+ sec.querySelectorAll('[data-check]').forEach(e=>{total++;if(e.checked)score++;});
+ const imgs=(imageState['sec'+n]||[]).length+(n===8?(imageState.beta||[]).length:0);if(imgs){score++;total++;}
+ return {score,total,ratio:total?score/total:0,has:score>0};
+}
+function updateProgress(){
+ let done=0;for(let n=1;n<=19;n++){const r=sectionHasContent(n),st=$(`#status-${n}`),ti=$(`#tocstate-${n}`);st.className='chapter-status';if(r.ratio>=.7){done++;st.textContent='Preenchido';st.classList.add('done');ti.textContent='●';ti.style.color='var(--green)';}else if(r.has){st.textContent='Em andamento';st.classList.add('partial');ti.textContent='◐';ti.style.color='var(--amber)';}else{st.textContent='Pendente';ti.textContent='○';ti.style.color='';}}
+ const pct=Math.round(done/19*100);$('#progressPct').textContent=pct+'%';$('#topProgress').style.width=pct+'%';updateAudit();
+}
+function updateAudit(){
+ const boxes=$$('[data-audit]'),checked=boxes.filter(x=>x.checked).length;$('#auditPct').textContent=Math.round(checked/boxes.length*100)+'%';
+ const critical=[];if(!(document.querySelector('[data-key="s8_url"]').value||'').trim())critical.push('URL pública da beta não informada.');
+ if((imageState.beta||[]).length===0)critical.push('Nenhuma evidência visual de acesso à beta foi anexada.');
+ const incidents=(collectTables().incidents||[]).filter(r=>r.some(v=>v.trim())).length;if(!incidents)critical.push('Nenhum erro/incidente foi documentado.');
+ const metrics=(collectTables().metrics||[]).filter(r=>r.some(v=>v.trim())).length;if(!metrics)critical.push('Nenhuma métrica de validação foi registrada.');
+ if(!document.querySelector('[data-key="s14_video"]').value.trim())critical.push('Vídeo institucional ainda não foi informado.');
+ $('#criticalOutput').innerHTML=critical.length?'<b>Lacunas automáticas:</b><ul>'+critical.map(x=>'<li>'+x+'</li>').join('')+'</ul>':'Nenhuma lacuna crítica automática foi detectada. Faça revisão qualitativa.';
+}
+function setMode(m){
+ document.body.classList.remove('editmode','reviewmode','reportmode');document.body.classList.add(m+'mode');
+ $$('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
+ if(m==='report'){updateReportSpans();autoResizeAll();window.scrollTo(0,0);}
+}
+$$('[data-mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+$('#reviewBtn').onclick=()=>{setMode('review');$('#reviewPanel').scrollIntoView({behavior:'smooth'});};
+$('#reportBtn').onclick=()=>setMode('report');$('#backEdit').onclick=()=>setMode('edit');$('#printBtn').onclick=()=>{autoResizeAll();setTimeout(()=>window.print(),120);};
+
+function updateReportSpans(){$$('[data-report]').forEach(sp=>{const e=document.querySelector(`[data-key="${sp.dataset.report}"]`);sp.textContent=e&&e.value?e.value:'—';});}
+function autoResizeAll(){$$('textarea').forEach(t=>{t.style.height='auto';t.style.height=(t.scrollHeight+3)+'px';});}
+
+function addImages(files,key){const arr=imageState[key]||(imageState[key]=[]);[...files].forEach(file=>{const r=new FileReader();r.onload=()=>{arr.push({src:r.result,caption:'',name:file.name});renderGallery(key);scheduleSave();};r.readAsDataURL(file);});}
+$('#betaImageInput').onchange=e=>addImages(e.target.files,'beta');$$('.section-image-input').forEach(i=>i.onchange=e=>addImages(e.target.files,'sec'+i.dataset.section));
+function renderGallery(key){const id=key==='beta'?'gallery-beta':'gallery-'+key.replace('sec','');const el=document.getElementById(id);if(!el)return;el.innerHTML='';(imageState[key]||[]).forEach((im,i)=>{const d=document.createElement('div');d.className='gallery-item';d.innerHTML=`<img src="${im.src}" alt=""><textarea placeholder="Legenda">${im.caption||''}</textarea><button class="edit-only">×</button>`;d.querySelector('textarea').oninput=e=>{im.caption=e.target.value;scheduleSave();};d.querySelector('button').onclick=()=>{imageState[key].splice(i,1);renderGallery(key);scheduleSave();};el.appendChild(d);});}
+function renderAllGalleries(){Object.keys(imageState).forEach(renderGallery);renderGallery('beta');}
+
+$('#saveJson').onclick=()=>{const blob=new Blob([JSON.stringify(collectState(true),null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='EPRI0004_Relatorio_Final_Projeto.json';a.click();URL.revokeObjectURL(a.href);};
+$('#loadJson').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{applyState(JSON.parse(r.result));saveLocal();alert('Projeto carregado com sucesso.')}catch(err){alert('Arquivo inválido.')}};r.readAsText(f);};
+
+ensureRows();try{const s=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(s)applyState(s);}catch(e){}renderAllGalleries();updateProgress();updateReportSpans();
+</script>
+</body></html>
